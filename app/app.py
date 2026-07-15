@@ -4,9 +4,34 @@ import os
 from datetime import datetime
 from collections import Counter
 import hashlib
+from dotenv import load_dotenv
+
+# Load variables from .env into os.environ before anything else
+load_dotenv()
 
 app = Flask(__name__)
-app.secret_key = 'sentinelai-secret-2026'
+
+# ── Secret key ───────────────────────────────────────────
+# Loaded from the SECRET_KEY environment variable.
+# In development, fall back to a local default and warn loudly.
+# In production this must be set — a missing key raises an error.
+_secret_key = os.getenv("SECRET_KEY")
+if not _secret_key:
+    import sys
+    if os.getenv("FLASK_ENV") == "production":
+        raise RuntimeError(
+            "SECRET_KEY environment variable is not set. "
+            "Set it in your .env file or server environment before starting."
+        )
+    # Development-only fallback — never safe for production
+    _secret_key = "dev-fallback-change-me"
+    print(
+        "\n⚠️  WARNING: SECRET_KEY not set. "
+        "Using an insecure development fallback. "
+        "Create a .env file with SECRET_KEY=<strong-random-value>.\n",
+        file=sys.stderr
+    )
+app.secret_key = _secret_key
 
 # ── RBAC ─────────────────────────────────────────────────
 
