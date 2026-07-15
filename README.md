@@ -182,7 +182,3 @@ sentinelai/
 - For production, use a WSGI server (Gunicorn/uWSGI) behind a reverse proxy (Nginx)
 
 ---
-
-## License
-
-MIT License — see [LICENSE](LICENSE) for details.
