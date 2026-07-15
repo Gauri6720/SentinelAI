@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelAI — Register</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0B1220;
+  color: #F8FAFC;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 80% 20%, rgba(124,58,237,0.08) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 20% 80%, rgba(56,189,248,0.06) 0%, transparent 60%);
+  animation: bgShift 12s ease-in-out infinite alternate;
+}
+@keyframes bgShift {
+  0%   { opacity: 0.6; transform: scale(1); }
+  100% { opacity: 1;   transform: scale(1.06); }
+}
+.bg-canvas::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg, transparent, transparent 3px,
+    rgba(124,58,237,0.015) 3px, rgba(124,58,237,0.015) 4px
+  );
+  pointer-events: none;
+}
+.dot-field { position: absolute; inset: 0; }
+.dot-field span {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(124,58,237,0.5);
+  animation: floatDot linear infinite;
+}
+@keyframes floatDot {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.5; }
+  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+.register-card {
+  position: relative;
+  z-index: 10;
+  background: #0F172A;
+  border-radius: 16px;
+  padding: 40px;
+  width: 440px;
+  max-width: 92vw;
+  border: 1px solid rgba(124,58,237,0.25);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(124,58,237,0.06);
+}
+
+.logo-wrap { text-align: center; margin-bottom: 28px; }
+.logo-icon  { font-size: 36px; display: block; margin-bottom: 8px; }
+.logo-title { font-size: 22px; font-weight: 700; color: #7C3AED; letter-spacing: -0.5px; }
+.logo-sub   { font-size: 12px; color: #64748B; margin-top: 4px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+.form-group  { margin-bottom: 14px; }
+.form-label  {
+  display: block; font-size: 12px; font-weight: 600;
+  color: #94A3B8; margin-bottom: 5px;
+  text-transform: uppercase; letter-spacing: 0.5px;
+}
+.form-input, .form-select {
+  width: 100%; padding: 11px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px; color: #F8FAFC;
+  font-size: 14px; font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input::placeholder { color: #475569; }
+.form-input:focus, .form-select:focus {
+  border-color: #7C3AED;
+  box-shadow: 0 0 0 3px rgba(124,58,237,0.12);
+}
+.form-select option { background: #0F172A; }
+
+.form-row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+
+.form-error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #EF4444; padding: 10px 14px;
+  border-radius: 8px; font-size: 13px;
+  margin-bottom: 16px;
+  display: flex; align-items: center; gap: 8px;
+}
+.field-error {
+  color: #EF4444; font-size: 11px; margin-top: 4px; display: none;
+}
+
+.btn-submit {
+  width: 100%; padding: 12px;
+  background: #7C3AED; color: #fff;
+  border: none; border-radius: 8px;
+  font-size: 15px; font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer; transition: background 0.2s, transform 0.1s;
+  margin-top: 8px;
+}
+.btn-submit:hover  { background: #6D28D9; }
+.btn-submit:active { transform: scale(0.98); }
+
+.form-divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); margin: 18px 0; }
+.form-footer  { text-align: center; margin-top: 18px; font-size: 13px; color: #64748B; }
+.form-footer a { color: #7C3AED; text-decoration: none; }
+.form-footer a:hover { text-decoration: underline; }
+</style>
+</head>
+<body>
+
+<div class="bg-canvas">
+  <div class="dot-field" id="dots"></div>
+</div>
+
+<div class="register-card">
+  <div class="logo-wrap">
+    <span class="logo-icon">🛡️</span>
+    <div class="logo-title">SentinelAI</div>
+    <div class="logo-sub">Create Account</div>
+  </div>
+
+  {% if error %}
+  <div class="form-error">⚠ {{ error }}</div>
+  {% endif %}
+
+  <form method="POST" action="/register" id="reg-form">
+    <div class="form-group">
+      <label class="form-label" for="full_name">Full Name</label>
+      <input class="form-input" type="text" id="full_name" name="full_name"
+             placeholder="John Smith" required>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="email">Email</label>
+        <input class="form-input" type="email" id="email" name="email"
+               placeholder="you@example.com" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="username">Username</label>
+        <input class="form-input" type="text" id="username" name="username"
+               placeholder="username" autocomplete="username" required>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="form-label" for="role">Role</label>
+      <select class="form-select" id="role" name="role">
+        <option value="SOC Analyst">SOC Analyst</option>
+        <option value="Security Engineer">Security Engineer</option>
+        <option value="Threat Hunter">Threat Hunter</option>
+        <option value="Incident Responder">Incident Responder</option>
+        <option value="Admin">Admin</option>
+      </select>
+    </div>
+
+    <div class="form-row">
+      <div class="form-group">
+        <label class="form-label" for="password">Password</label>
+        <input class="form-input" type="password" id="password" name="password"
+               placeholder="••••••••" autocomplete="new-password" required>
+      </div>
+      <div class="form-group">
+        <label class="form-label" for="confirm_password">Confirm Password</label>
+        <input class="form-input" type="password" id="confirm_password" name="confirm_password"
+               placeholder="••••••••" required>
+        <div class="field-error" id="pw-mismatch">Passwords do not match</div>
+      </div>
+    </div>
+
+    <hr class="form-divider">
+    <button type="submit" class="btn-submit">CREATE ACCOUNT →</button>
+  </form>
+
+  <div class="form-footer">
+    Already have an account? <a href="/login">Login</a>
+  </div>
+</div>
+
+<script>
+// Floating dots
+(function() {
+  var field = document.getElementById('dots');
+  for (var i = 0; i < 24; i++) {
+    var s = document.createElement('span');
+    s.style.left = Math.random() * 100 + 'vw';
+    s.style.animationDuration = (10 + Math.random() * 14) + 's';
+    s.style.animationDelay   = (Math.random() * 10) + 's';
+    s.style.width  = (2 + Math.random() * 3) + 'px';
+    s.style.height = s.style.width;
+    field.appendChild(s);
+  }
+})();
+
+// Client-side password match validation
+document.getElementById('reg-form').addEventListener('submit', function(e) {
+  var pw  = document.getElementById('password').value;
+  var cpw = document.getElementById('confirm_password').value;
+  var err = document.getElementById('pw-mismatch');
+  if (pw !== cpw) {
+    e.preventDefault();
+    err.style.display = 'block';
+    document.getElementById('confirm_password').style.borderColor = '#EF4444';
+  }
+});
+document.getElementById('confirm_password').addEventListener('input', function() {
+  var pw  = document.getElementById('password').value;
+  var err = document.getElementById('pw-mismatch');
+  if (this.value === pw) {
+    err.style.display = 'none';
+    this.style.borderColor = '';
+  }
+});
+</script>
+</body>
+</html>

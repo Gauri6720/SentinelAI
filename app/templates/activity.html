@@ -1,0 +1,499 @@
+﻿{% extends "base.html" %}
+{% block title %}SentinelAI — Activity Log{% endblock %}
+
+{% block extra_css %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #0B1220;
+    --panel-bg: #121A2A;
+    --sidebar-bg: #0F172A;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --accent-green: #22C55E;
+    --accent-cyan: #38BDF8;
+    --accent-purple: #7C3AED;
+    --warning: #F59E0B;
+    --critical: #EF4444;
+    --border-glow: rgba(0, 255, 255, 0.15);
+}
+
+body {
+    background-color: var(--bg-color) !important;
+    font-family: 'Inter', sans-serif !important;
+    color: var(--text-primary) !important;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body > nav { display: none !important; }
+main { padding: 0 !important; max-width: 100% !important; height: 100vh; }
+
+.dashboard-app {
+    display: flex;
+    height: 100vh;
+    width: 100vw;
+}
+
+/* ============ SIDEBAR ============ */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #0F172A;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 200;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    flex: 1;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.sidebar-nav a:hover {
+    background: rgba(255,255,255,0.04);
+    color: #F8FAFC;
+    border-left-color: rgba(56,189,248,0.4);
+}
+.sidebar-nav a.active {
+    background: rgba(56,189,248,0.08);
+    color: #38BDF8;
+    border-left-color: #38BDF8;
+    font-weight: 500;
+}
+.sidebar-bottom {
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-admin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 6px 0;
+}
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: #38BDF8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #0B1220;
+}
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #F8FAFC;
+    line-height: 1.2;
+}
+.admin-role { font-size: 11px; color: #94A3B8; }
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-bottom: 5px;
+}
+.status-dot {
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+}
+
+/* ============ MAIN AREA & NAVBAR ============ */
+.main-area {
+    flex-grow: 1; display: flex; flex-direction: column;
+    overflow: hidden; position: relative;
+    margin-left: 240px; transition: margin-left 0.3s ease;
+}
+
+.top-nav {
+    height: 60px; min-height: 60px;
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border-glow);
+    display: flex; align-items: center;
+    justify-content: space-between;
+    padding: 0 24px; flex-shrink: 0; gap: 16px;
+}
+
+.nav-left { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav-center { flex-grow: 1; max-width: 420px; }
+.nav-center input {
+    width: 100%; padding: 7px 14px;
+    border-radius: 8px; border: 1px solid var(--border-glow);
+    background: var(--bg-color); color: var(--text-primary);
+    outline: none; font-family: 'Inter', sans-serif; font-size: 0.88rem; box-sizing: border-box;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+
+.hamburger {
+    display: none; cursor: pointer; font-size: 1.4rem; color: var(--text-primary);
+    line-height: 1; background: none; border: none; padding: 4px;
+}
+
+.notification-bell {
+    position: relative; cursor: pointer; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+
+.bell-badge {
+    position: absolute; top: -6px; right: -8px;
+    background-color: var(--critical); color: white;
+    font-size: 0.6rem; font-weight: bold;
+    min-width: 16px; height: 16px; padding: 0 3px;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center; line-height: 1;
+}
+
+.nav-admin { display: flex; align-items: center; gap: 10px; }
+.nav-profile-text { display: flex; flex-direction: column; align-items: flex-end; }
+.nav-profile-name { font-weight: 600; font-size: 0.88rem; color: var(--text-primary); white-space: nowrap; }
+.nav-profile-role { font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; }
+
+.nav-avatar {
+    min-width: 32px; min-height: 32px; width: 32px; height: 32px;
+    border-radius: 50%; background: var(--accent-cyan);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: #0B1220; font-size: 0.9rem; flex-shrink: 0;
+}
+
+/* ============ RESPONSIVE ============ */
+@media (max-width: 1024px) {
+    .sidebar { width: 60px; }
+    .sidebar-label, .nav-label, .sidebar-user-text, .sys-status-item .nav-label { display: none !important; }
+    .sidebar-nav a { justify-content: center; padding: 12px 0; gap: 0; }
+    .nav-icon { min-width: 100%; text-align: center; font-size: 1.2rem; }
+    .sidebar-footer { padding: 10px 0; align-items: center; }
+    .sidebar-user { justify-content: center; }
+    .sys-status-item { justify-content: center; }
+    .main-area { margin-left: 60px; }
+    .nav-center { max-width: 260px; }
+}
+
+@media (max-width: 768px) {
+    .sidebar { transform: translateX(-100%); width: 240px; z-index: 300; }
+    .sidebar.open { transform: translateX(0); }
+    .sidebar-label, .nav-label, .sidebar-user-text, .sys-status-item .nav-label { display: initial !important; }
+    .sidebar-nav a { justify-content: flex-start; padding: 10px 16px; gap: 10px; }
+    .nav-icon { min-width: 20px; font-size: 1.1rem; }
+    .sidebar-footer { padding: 12px 16px; align-items: flex-start; }
+    .main-area { margin-left: 0; }
+    .hamburger { display: flex !important; }
+    .nav-center { display: none; }
+    .nav-profile-text { display: none; }
+    .top-nav { padding: 0 16px; }
+    .sidebar-overlay { display: block; position: fixed; inset: 0; background: rgba(0,0,0,0.5); z-index: 250; }
+}
+/* Main Area & Navbar */
+.main-area {
+    flex-grow: 1;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    position: relative;
+    margin-left: 240px;
+}
+
+.top-nav {
+    height: 60px;
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border-glow);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 30px;
+    flex-shrink: 0;
+}
+
+.live-indicator {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    color: var(--accent-green);
+    font-weight: 600;
+    font-size: 0.9rem;
+    letter-spacing: 1px;
+}
+
+.dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: var(--accent-green);
+    box-shadow: 0 0 8px var(--accent-green);
+    animation: pulse-dot 2s infinite;
+}
+
+@keyframes pulse-dot {
+    0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+    70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.dashboard-content {
+    flex-grow: 1;
+    padding: 20px 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.panel {
+    background-color: var(--panel-bg);
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+/* Custom scrollbar */
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: var(--bg-color); }
+::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(255,255,255,0.2); }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-app">
+    <!-- Left Sidebar -->
+    {% include '_sidebar.html' %}
+
+    <!-- Main Content Wrapper -->
+    <div class="main-area">
+        <!-- Top Navbar -->
+        <header class="top-nav">
+            <div class="nav-left">
+                <button class="hamburger" id="hamburger-btn" onclick="toggleSidebar()" aria-label="Toggle Sidebar">&#9776;</button>
+                <div style="display:flex; align-items:center; gap:8px; font-weight:700; color:var(--text-primary); font-size:1.1rem; white-space:nowrap;">&#128737;&#65039; <span>SentinelAI</span></div>
+            </div>
+            <div class="nav-center">
+                <input type="text" placeholder="Search for IP, User, Alert ID..." />
+            </div>
+            <div class="nav-right">
+                <div class="live-indicator"><div class="dot"></div> LIVE</div>
+                <div class="notification-bell" title="Notifications">&#128276;<span class="bell-badge">3</span></div>
+                <div class="dropdown" tabindex="0" style="position:relative;">
+                    <span style="font-size:1.2rem; cursor:pointer; display:flex; align-items:center;">&#9881;&#65039;</span>
+                    <div class="dropdown-content" style="right:0; left:auto; top:calc(100% + 8px); min-width:200px;">
+                        <a href="#" class="dropdown-item" onclick="toggleDarkMode()">Toggle Dark Mode</a>
+                        <a href="/report/download" class="dropdown-item">Export Data</a>
+                        <div class="dropdown-divider"></div>
+                        <a onclick="clearIncidents()" class="dropdown-item" style="color:var(--critical);">Clear All Incidents</a>
+                    </div>
+                </div>
+                <div class="profile-trigger" onclick="toggleDropdown('navbar-profile-dropdown')" style="position:relative;">
+                    <div class="nav-admin" style="cursor:pointer;">
+                        <div class="nav-profile-text">
+                            <span class="nav-profile-name">{{ user.get('full_name', 'Admin') }}</span>
+                            <span class="nav-profile-role">{{ user.get('role', 'SOC Analyst') }}</span>
+                        </div>
+                        <div class="nav-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+                    </div>
+                    <div class="profile-dropdown" id="navbar-profile-dropdown">
+                        <div class="pd-header">
+                            <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+                            <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+                            <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+                        </div>
+                        <a href="/profile" class="pd-item">👤 My Profile</a>
+                        <a href="/settings" class="pd-item">⚙️ Settings</a>
+                        <a href="/logout" class="pd-item logout">🚪 Logout</a>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard-content">
+            <div class="panel">
+                <h2 style="margin:0 0 20px 0; font-size:1.2rem; color:var(--text-primary);">AGENT ACTIVITY LOG <span class="badge-live">LIVE</span></h2>
+                <table id="activity-table">
+                    <thead>
+                        <tr>
+                            <th>Time</th>
+                            <th>Agent</th>
+                            <th>Action</th>
+                            <th>Detail</th>
+                        </tr>
+                    </thead>
+                    <tbody id="activity-body">
+                        <tr><td colspan="4" class="empty-state">Waiting for agent activity...</td></tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    async function fetchActivity() {
+        try {
+            const res = await fetch('/api/activity');
+            if (!res.ok) throw new Error(`HTTP error! status: ${res.status}`);
+            const data = await res.json();
+            const tbody = document.getElementById('activity-body');
+            
+            if (data && data.length > 0) {
+                // Limit to max 50 rows
+                const rows = data.slice(0, 50);
+                tbody.innerHTML = '';
+                rows.forEach(item => {
+                    const tr = document.createElement('tr');
+                    
+                    let agentClass = '';
+                    const agentLower = (item.agent || '').toLowerCase();
+                    if (agentLower.includes('monitor')) agentClass = 'agent-monitor';
+                    else if (agentLower.includes('analyst')) agentClass = 'agent-analyst';
+                    else if (agentLower.includes('responder')) agentClass = 'agent-responder';
+
+                    tr.innerHTML = `
+                        <td style="font-family:monospace; font-size:0.85rem; color:var(--text-secondary);">${item.timestamp || '-'}</td>
+                        <td class="${agentClass}">${item.agent || '-'}</td>
+                        <td>${item.action || '-'}</td>
+                        <td style="font-size:0.85rem; color:var(--text-secondary);">${item.detail || '-'}</td>
+                    `;
+                    tbody.appendChild(tr);
+                });
+            } else {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state">Waiting for agent activity...</td></tr>';
+            }
+        } catch (error) {
+            console.error('[SIEM] Error fetching activity:', error);
+            const tbody = document.getElementById('activity-body');
+            if (tbody.innerHTML.includes('Waiting')) {
+                tbody.innerHTML = '<tr><td colspan="4" class="empty-state" style="color: var(--critical);">ERROR: Unable to retrieve activity log.</td></tr>';
+            }
+        }
+    }
+
+    fetchActivity();
+    setInterval(fetchActivity, 3000);
+    
+
+    let unreadCount = 0;
+    async function fetchNotifications() {
+        try {
+            const res = await fetch('/api/incidents');
+            if (res.ok) {
+                const incidents = await res.json();
+                const latest = incidents.slice(0, 5);
+                const notifHtml = latest.map(i => {
+                    let ts = (i.timestamp || '').split(' ')[1] || ''; // just time
+                    return `<div class="dropdown-item text-trunc" style="display:flex; justify-content:space-between;">
+                        <span><span style="color:var(--critical); font-weight:bold;">${i.severity}</span>: ${i.threat_type}</span>
+                        <span class="notif-time">${ts}</span>
+                    </div>`;
+                }).join('');
+                const alertBox = document.getElementById('dropdown-alerts');
+                if(alertBox) alertBox.innerHTML = notifHtml;
+                const badge = document.querySelector('.bell-badge');
+                if(badge) {
+                    if (unreadCount === -1) { badge.style.display = 'none'; }
+                    else { badge.innerText = latest.length; badge.style.display = 'block'; }
+                }
+            }
+        } catch (e) {}
+    }
+    
+    function markAllRead() {
+        unreadCount = -1;
+        const badge = document.querySelector('.bell-badge');
+        if(badge) badge.style.display = 'none';
+    }
+
+    async function clearIncidents() {
+        if(confirm("Are you sure you want to clear all incidents and blocked IPs? This cannot be undone.")) {
+            try {
+                await fetch('/api/clear-incidents', { method: 'POST' });
+                location.reload();
+            } catch (e) { alert('Error clearing data'); }
+        }
+    }
+
+    function toggleDarkMode() {
+        // UI toggle as requested (stays dark theme natively)
+        alert("Dark mode is permanently locked in for optimal SOC viewing.");
+    }
+    function toggleSidebar() {
+        const sidebar = document.getElementById('sidebar');
+        sidebar.classList.toggle('open');
+        let overlay = document.getElementById('sidebar-overlay');
+        if (sidebar.classList.contains('open')) {
+            if (!overlay) {
+                overlay = document.createElement('div');
+                overlay.id = 'sidebar-overlay';
+                overlay.className = 'sidebar-overlay';
+                overlay.onclick = toggleSidebar;
+                document.body.appendChild(overlay);
+            }
+        } else { if (overlay) overlay.remove(); }
+    }
+
+    fetchNotifications();
+    setInterval(fetchNotifications, 10000);
+
+</script>
+
+<script>
+/* ── PROFILE DROPDOWN ── */
+function toggleDropdown(id) {
+  var all = ['sidebar-profile-dropdown', 'navbar-profile-dropdown'];
+  all.forEach(function(did) {
+    var el = document.getElementById(did);
+    if (!el) return;
+    if (did === id) {
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.profile-trigger')) {
+    ['sidebar-profile-dropdown','navbar-profile-dropdown'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+});
+</script>
+{% endblock %}

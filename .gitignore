@@ -1,0 +1,90 @@
+# ─────────────────────────────────────────
+#  SentinelAI — .gitignore
+#  Python / Flask / VS Code / Windows
+# ─────────────────────────────────────────
+
+# ── Python cache & bytecode ──────────────
+__pycache__/
+*.py[cod]
+*$py.class
+*.pyo
+
+# ── Virtual environments ─────────────────
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# ── Environment & secrets ────────────────
+.env
+.env.*
+!.env.example
+
+# ── Flask / Werkzeug ─────────────────────
+instance/
+.webassets-cache
+flask_session/
+
+# ── Distribution / packaging ─────────────
+build/
+dist/
+*.egg-info/
+*.egg
+.eggs/
+wheels/
+pip-wheel-metadata/
+MANIFEST
+
+# ── Testing & coverage ───────────────────
+.pytest_cache/
+.coverage
+.coverage.*
+htmlcov/
+nosetests.xml
+coverage.xml
+*.cover
+*.hypothesis/
+
+# ── IDE & editor files ───────────────────
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+*.orig
+*.bak
+
+# ── OS-specific ──────────────────────────
+.DS_Store
+.DS_Store?
+._*
+.Spotlight-V100
+.Trashes
+ehthumbs.db
+Thumbs.db
+desktop.ini
+
+# ── Log files ────────────────────────────
+*.log
+logs/
+
+# ── Temporary / runtime files ────────────
+*.tmp
+*.temp
+*.pid
+*.seed
+
+# ── Jupyter notebooks (checkpoints) ──────
+.ipynb_checkpoints/
+
+# ─────────────────────────────────────────
+#  DO NOT IGNORE (kept in repo):
+#    requirements.txt
+#    README.md
+#    data/*.json       (JSON data files)
+#    app/templates/    (HTML templates)
+#    app/static/       (CSS, JS, images)
+#    src/              (agent source code)
+# ─────────────────────────────────────────

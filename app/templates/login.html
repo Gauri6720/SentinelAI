@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>SentinelAI — Login</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  font-family: 'Inter', sans-serif;
+  background: #0B1220;
+  color: #F8FAFC;
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  position: relative;
+}
+
+/* ── animated background ── */
+.bg-canvas {
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  overflow: hidden;
+}
+.bg-canvas::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 80% 60% at 20% 30%, rgba(56,189,248,0.07) 0%, transparent 60%),
+    radial-gradient(ellipse 60% 50% at 80% 70%, rgba(124,58,237,0.07) 0%, transparent 60%);
+  animation: bgShift 12s ease-in-out infinite alternate;
+}
+@keyframes bgShift {
+  0%   { opacity: 0.6; transform: scale(1) translateY(0); }
+  100% { opacity: 1;   transform: scale(1.08) translateY(-20px); }
+}
+
+/* scan lines */
+.bg-canvas::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(56,189,248,0.015) 3px,
+    rgba(56,189,248,0.015) 4px
+  );
+  pointer-events: none;
+}
+
+/* floating dots */
+.dot-field { position: absolute; inset: 0; }
+.dot-field span {
+  position: absolute;
+  width: 3px; height: 3px;
+  border-radius: 50%;
+  background: rgba(56,189,248,0.4);
+  animation: floatDot linear infinite;
+}
+@keyframes floatDot {
+  0%   { transform: translateY(100vh) scale(0); opacity: 0; }
+  10%  { opacity: 1; }
+  90%  { opacity: 0.6; }
+  100% { transform: translateY(-100px) scale(1.5); opacity: 0; }
+}
+
+/* ── card ── */
+.login-card {
+  position: relative;
+  z-index: 10;
+  background: #0F172A;
+  border-radius: 16px;
+  padding: 40px;
+  width: 400px;
+  max-width: 90vw;
+  border: 1px solid rgba(0,255,255,0.15);
+  box-shadow: 0 20px 60px rgba(0,0,0,0.5), 0 0 40px rgba(56,189,248,0.05);
+}
+
+/* logo */
+.logo-wrap {
+  text-align: center;
+  margin-bottom: 28px;
+}
+.logo-icon { font-size: 40px; display: block; margin-bottom: 8px; }
+.logo-title {
+  font-size: 24px;
+  font-weight: 700;
+  color: #38BDF8;
+  letter-spacing: -0.5px;
+}
+.logo-sub {
+  font-size: 12px;
+  color: #64748B;
+  margin-top: 4px;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+}
+
+/* form */
+.form-group { margin-bottom: 16px; }
+.form-label {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: #94A3B8;
+  margin-bottom: 6px;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+.form-input {
+  width: 100%;
+  padding: 12px 16px;
+  background: rgba(255,255,255,0.04);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #F8FAFC;
+  font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none;
+  transition: border-color 0.2s, box-shadow 0.2s;
+}
+.form-input::placeholder { color: #475569; }
+.form-input:focus {
+  border-color: #38BDF8;
+  box-shadow: 0 0 0 3px rgba(56,189,248,0.1);
+}
+
+/* error */
+.form-error {
+  background: rgba(239,68,68,0.1);
+  border: 1px solid rgba(239,68,68,0.3);
+  color: #EF4444;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 13px;
+  margin-bottom: 16px;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+/* button */
+.btn-submit {
+  width: 100%;
+  padding: 12px;
+  background: #38BDF8;
+  color: #0B1220;
+  border: none;
+  border-radius: 8px;
+  font-size: 15px;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.1s;
+  margin-top: 8px;
+}
+.btn-submit:hover   { background: #0EA5E9; }
+.btn-submit:active  { transform: scale(0.98); }
+
+/* footer link */
+.form-footer {
+  text-align: center;
+  margin-top: 20px;
+  font-size: 13px;
+  color: #64748B;
+}
+.form-footer a { color: #38BDF8; text-decoration: none; }
+.form-footer a:hover { text-decoration: underline; }
+
+/* divider */
+.form-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.07);
+  margin: 20px 0;
+}
+</style>
+</head>
+<body>
+
+<!-- background -->
+<div class="bg-canvas">
+  <div class="dot-field" id="dots"></div>
+</div>
+
+<!-- login card -->
+<div class="login-card">
+  <div class="logo-wrap">
+    <span class="logo-icon">🛡️</span>
+    <div class="logo-title">SentinelAI</div>
+    <div class="logo-sub">Security Operations Center</div>
+  </div>
+
+  {% if error %}
+  <div class="form-error">⚠ {{ error }}</div>
+  {% endif %}
+
+  <form method="POST" action="/login">
+    <div class="form-group">
+      <label class="form-label" for="username">Username</label>
+      <input class="form-input" type="text" id="username" name="username"
+             placeholder="Enter your username" autocomplete="username" required>
+    </div>
+    <div class="form-group">
+      <label class="form-label" for="password">Password</label>
+      <input class="form-input" type="password" id="password" name="password"
+             placeholder="Enter your password" autocomplete="current-password" required>
+    </div>
+    <hr class="form-divider">
+    <button type="submit" class="btn-submit">LOGIN →</button>
+  </form>
+
+  <div class="form-footer">
+    Don't have an account? <a href="/register">Register</a>
+  </div>
+</div>
+
+<script>
+// Generate floating dots
+(function() {
+  var field = document.getElementById('dots');
+  for (var i = 0; i < 28; i++) {
+    var s = document.createElement('span');
+    s.style.left     = Math.random() * 100 + 'vw';
+    s.style.animationDuration  = (8 + Math.random() * 16) + 's';
+    s.style.animationDelay     = (Math.random() * 12) + 's';
+    s.style.width  = (2 + Math.random() * 3) + 'px';
+    s.style.height = s.style.width;
+    s.style.opacity = (0.2 + Math.random() * 0.5).toFixed(2);
+    field.appendChild(s);
+  }
+})();
+</script>
+</body>
+</html>

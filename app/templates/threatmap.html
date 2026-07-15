@@ -1,0 +1,546 @@
+﻿{% extends "base.html" %}
+{% block title %}SentinelAI — Threat Map{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css"/>
+<style>
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: #0B1220 !important;
+    font-family: 'Inter', sans-serif !important;
+    color: #F8FAFC !important;
+    overflow: hidden;
+}
+body > nav { display: none !important; }
+main { padding: 0 !important; height: 100vh; }
+
+:root {
+    --bg:        #0B1220;
+    --panel:     #121A2A;
+    --sidebar:   #0F172A;
+    --text:      #F8FAFC;
+    --muted:     #94A3B8;
+    --cyan:      #38BDF8;
+    --green:     #22C55E;
+    --red:       #EF4444;
+    --border:    rgba(0,255,255,0.12);
+}
+
+.page-wrap { display: flex; height: 100vh; width: 100vw; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #0F172A;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 200;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    flex: 1;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.sidebar-nav a:hover {
+    background: rgba(255,255,255,0.04);
+    color: #F8FAFC;
+    border-left-color: rgba(56,189,248,0.4);
+}
+.sidebar-nav a.active {
+    background: rgba(56,189,248,0.08);
+    color: #38BDF8;
+    border-left-color: #38BDF8;
+    font-weight: 500;
+}
+.sidebar-bottom {
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-admin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 6px 0;
+}
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: #38BDF8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #0B1220;
+}
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #F8FAFC;
+    line-height: 1.2;
+}
+.admin-role { font-size: 11px; color: #94A3B8; }
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-bottom: 5px;
+}
+.status-dot {
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+}
+
+/* ── MAIN AREA ── */
+.main-area {
+    flex: 1; display: flex; flex-direction: column;
+    margin-left: 240px; overflow: hidden;
+}
+
+/* ── TOPNAV ── */
+.top-nav {
+    height: 60px; background: var(--sidebar);
+    border-bottom: 1px solid var(--border);
+    display: flex; align-items: center;
+    padding: 0 24px; gap: 16px; flex-shrink: 0;
+}
+.tn-title { font-size: 15px; font-weight: 700; color: var(--text); }
+.tn-search { flex: 1; }
+.tn-search input {
+    width: 100%; max-width: 380px; padding: 7px 14px;
+    background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; color: var(--text); font-size: 13px;
+    font-family: 'Inter', sans-serif; outline: none;
+}
+.tn-search input::placeholder { color: #475569; }
+.tn-right { display: flex; align-items: center; gap: 14px; margin-left: auto; }
+.live-badge {
+    display: flex; align-items: center; gap: 6px;
+    color: var(--green); font-weight: 600; font-size: 13px;
+}
+.live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 1s infinite; }
+@keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+.bell-wrap { position: relative; cursor: pointer; }
+.bell-icon { font-size: 19px; color: var(--muted); }
+.bell-badge {
+    position: absolute; top: -5px; right: -6px;
+    background: var(--red); color: #fff;
+    border-radius: 50%; width: 16px; height: 16px;
+    font-size: 10px; font-weight: 700;
+    display: flex; align-items: center; justify-content: center;
+}
+.tn-profile { display: flex; align-items: center; gap: 8px; }
+.tn-avatar {
+    width: 32px; height: 32px; border-radius: 50%;
+    background: var(--cyan); display: flex; align-items: center;
+    justify-content: center; font-weight: 700; color: #0B1220; font-size: 13px;
+}
+.tn-name { font-size: 13px; font-weight: 600; color: var(--text); }
+.tn-role { font-size: 11px; color: var(--muted); }
+
+/* ── PAGE CONTENT ── */
+.page-content {
+    flex: 1; overflow-y: auto; padding: 20px 24px;
+    display: flex; flex-direction: column; gap: 16px;
+}
+.page-content::-webkit-scrollbar { width: 5px; }
+.page-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ── MAP CARD ── */
+.map-card {
+    background: var(--panel);
+    border: 1px solid var(--border);
+    border-radius: 12px; overflow: hidden;
+}
+.map-card-header {
+    padding: 14px 18px;
+    display: flex; align-items: center; justify-content: space-between;
+    border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.map-card-left { display: flex; align-items: center; gap: 10px; }
+.map-card-title { font-size: 13px; font-weight: 700; color: var(--text); text-transform: uppercase; letter-spacing: 1px; }
+.map-live-dot { width: 8px; height: 8px; border-radius: 50%; background: var(--green); animation: blink 1s infinite; }
+.counter-badge {
+    background: rgba(56,189,248,0.1); border: 1px solid rgba(56,189,248,0.25);
+    border-radius: 20px; padding: 3px 12px;
+    font-size: 12px; font-weight: 600; color: var(--cyan);
+}
+.map-card-right { display: flex; align-items: center; gap: 10px; }
+.region-select {
+    background: var(--sidebar); border: 1px solid rgba(255,255,255,0.12);
+    color: var(--muted); padding: 5px 10px; border-radius: 6px;
+    font-size: 12px; font-family: 'Inter', sans-serif; cursor: pointer; outline: none;
+}
+.region-select option { background: var(--panel); }
+#tm-map { height: 600px; width: 100%; }
+
+/* ── IP GRID ── */
+.ip-grid-section { }
+.section-title {
+    font-size: 12px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--muted); margin-bottom: 12px;
+}
+.ip-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 10px;
+}
+.ip-card {
+    background: var(--panel);
+    border: 1px solid rgba(239,68,68,0.3);
+    border-radius: 10px; padding: 14px;
+    display: flex; flex-direction: column; gap: 4px;
+    transition: border-color 0.2s, box-shadow 0.2s;
+}
+.ip-card:hover {
+    border-color: rgba(239,68,68,0.6);
+    box-shadow: 0 0 12px rgba(239,68,68,0.12);
+}
+.ip-card-ip { font-family: monospace; font-size: 13px; font-weight: 600; color: var(--red); }
+.ip-card-country { font-size: 12px; color: var(--muted); }
+.ip-card-status {
+    margin-top: 6px; font-size: 11px; font-weight: 700;
+    color: var(--red); display: flex; align-items: center; gap: 5px;
+}
+.ip-card-status::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--red); box-shadow: 0 0 5px var(--red);
+}
+.ip-empty { color: var(--muted); font-size: 13px; font-style: italic; }
+
+/* ── PROFILE DROPDOWN ── */
+.profile-trigger { position: relative; cursor: pointer; }
+.profile-dropdown {
+  display: none; position: absolute;
+  background: #1E293B;
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 12px; min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 999;
+}
+#sidebar-profile-dropdown { bottom: calc(100% + 6px); left: 0; }
+#navbar-profile-dropdown  { top: calc(100% + 8px); right: 0; }
+.pd-header {
+  padding: 16px; text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px;
+}
+.pd-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg,#38BDF8,#7C3AED);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 8px; font-size: 20px; font-weight: 700; color: #fff;
+}
+.pd-name { font-size: 15px; font-weight: 600; color: #F8FAFC; }
+.pd-role { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+.pd-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; color: #94A3B8; font-size: 14px;
+  text-decoration: none; transition: all 0.15s; cursor: pointer;
+}
+.pd-item:hover { background: rgba(255,255,255,0.05); color: #F8FAFC; }
+.pd-item.logout { color: #EF4444; }
+.pd-item.logout:hover { background: rgba(239,68,68,0.08); color: #EF4444; }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="page-wrap">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-header">
+      <div class="sidebar-logo">🛡️ <span>SentinelAI</span></div>
+    </div>
+    <nav class="sidebar-nav">
+      <a href="/"><span class="nav-icon">📊</span>Dashboard</a>
+      <a href="/incidents"><span class="nav-icon">⚠️</span>Incidents</a>
+      <a href="/blocked"><span class="nav-icon">🚫</span>Blocked IPs</a>
+      <a href="/activity"><span class="nav-icon">📋</span>Activity Log</a>
+      <a href="/threatmap" class="active"><span class="nav-icon">🗺️</span>Threat Map</a>
+      {% if perms.get('can_view_reports') %}
+      <a href="/reports"><span class="nav-icon">📄</span>Reports</a>
+      {% endif %}
+      {% if perms.get('can_view_settings') %}
+      <a href="/settings"><span class="nav-icon">⚙️</span>Settings</a>
+      {% endif %}
+    </nav>
+    <div class="sidebar-footer">
+      <div class="sb-divider"></div>
+      <div class="sb-status"><span class="status-dot"></span>AI Engine: Active</div>
+      <div class="sb-status" style="margin-bottom:10px"><span class="status-dot"></span>Data Ingestion: Live</div>
+      <div class="profile-trigger" onclick="toggleDropdown('sidebar-profile-dropdown')">
+        <div class="sb-user" style="cursor:pointer;">
+          <div class="sb-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          <div>
+            <div class="sb-name">{{ user.get('full_name', 'Admin') }}</div>
+            <div class="sb-role">{{ user.get('role', 'SOC Analyst') }}</div>
+          </div>
+          <span style="margin-left:auto;color:#475569;font-size:11px;">▲</span>
+        </div>
+        <div class="profile-dropdown" id="sidebar-profile-dropdown">
+          <div class="pd-header">
+            <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+            <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+            <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+          </div>
+          <a href="/profile" class="pd-item">👤 My Profile</a>
+          <a href="/settings" class="pd-item">⚙️ Settings</a>
+          <a href="/logout" class="pd-item logout">🚪 Logout</a>
+        </div>
+      </div>
+    </div>
+  </aside>
+
+  <!-- ── MAIN AREA ── -->
+  <div class="main-area">
+
+    <!-- TOPNAV -->
+    <header class="top-nav">
+      <div class="tn-title">🗺️ Threat Map</div>
+      <div class="tn-search">
+        <input type="text" placeholder="Search for IP, User, Alert ID...">
+      </div>
+      <div class="tn-right">
+        <div class="live-badge"><span class="live-dot"></span>LIVE</div>
+        <div class="bell-wrap">
+          <span class="bell-icon">🔔</span>
+          <span class="bell-badge">3</span>
+        </div>
+        <div class="profile-trigger" onclick="toggleDropdown('navbar-profile-dropdown')">
+          <div class="tn-profile" style="cursor:pointer;">
+            <div>
+              <div class="tn-name">{{ user.get('full_name', 'Admin') }}</div>
+              <div class="tn-role">{{ user.get('role', 'SOC Analyst') }}</div>
+            </div>
+            <div class="tn-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          </div>
+          <div class="profile-dropdown" id="navbar-profile-dropdown">
+            <div class="pd-header">
+              <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+              <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+              <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+            </div>
+            <a href="/profile" class="pd-item">👤 My Profile</a>
+            <a href="/settings" class="pd-item">⚙️ Settings</a>
+            <a href="/logout" class="pd-item logout">🚪 Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- PAGE CONTENT -->
+    <div class="page-content">
+
+      <!-- MAP CARD -->
+      <div class="map-card">
+        <div class="map-card-header">
+          <div class="map-card-left">
+            <span class="map-card-title">Live Threat Map</span>
+            <span class="map-live-dot"></span>
+            <span class="counter-badge"><span id="counter-num">0</span> Attacker Locations Mapped</span>
+          </div>
+          <div class="map-card-right">
+            <select class="region-select" id="region-select">
+              <option value="global">Global</option>
+              <option value="na">North America</option>
+              <option value="eu">Europe</option>
+              <option value="as">Asia</option>
+              <option value="af">Africa</option>
+            </select>
+          </div>
+        </div>
+        <div id="tm-map"></div>
+      </div>
+
+      <!-- BLOCKED IP GRID -->
+      <div class="ip-grid-section">
+        <div class="section-title">🚫 Blocked IP Locations</div>
+        <div class="ip-grid" id="ip-grid">
+          <span class="ip-empty">Loading blocked IPs...</span>
+        </div>
+      </div>
+
+    </div><!-- /page-content -->
+  </div><!-- /main-area -->
+</div><!-- /page-wrap -->
+{% endblock %}
+
+{% block extra_js %}
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<script>
+'use strict';
+
+/* ── IP → Geo DB ── */
+var IP_GEO = {
+  '45.33.32.156':   { lat: 37.3861,  lng: -122.0839, country: 'USA' },
+  '103.21.244.0':   { lat: 1.3521,   lng:  103.8198,  country: 'Singapore' },
+  '192.168.1.105':  { lat: 28.6139,  lng:   77.2090,  country: 'India' },
+  '185.220.101.45': { lat: 51.5074,  lng:   -0.1278,  country: 'UK' },
+  '91.108.4.1':     { lat: 55.7558,  lng:   37.6173,  country: 'Russia' },
+  '194.165.16.11':  { lat: 48.8566,  lng:    2.3522,  country: 'France' }
+};
+
+/* All 6 attack points shown regardless of blocked list */
+var ALL_POINTS = Object.keys(IP_GEO).map(function(ip) {
+  var g = IP_GEO[ip];
+  return { ip: ip, lat: g.lat, lng: g.lng, country: g.country };
+});
+
+/* ── Init Leaflet ── */
+var tmMap = L.map('tm-map', {
+  center: [20, 0], zoom: 2,
+  zoomControl: true, attributionControl: false
+});
+L.tileLayer('https://{s}.basemaps.cartocdn.com/dark_all/{z}/{x}/{y}{r}.png', {
+  subdomains: 'abcd', maxZoom: 19
+}).addTo(tmMap);
+
+/* ── Markers ── */
+ALL_POINTS.forEach(function(pt) {
+  var icon = L.divIcon({
+    className: '',
+    html: '<div style="' +
+      'width:14px;height:14px;border-radius:50%;' +
+      'background:#EF4444;border:2px solid rgba(255,150,150,0.7);' +
+      'box-shadow:0 0 10px #EF4444,0 0 20px rgba(239,68,68,0.45);' +
+      'animation:markerPulse 1.8s ease-in-out infinite;' +
+    '"></div>',
+    iconSize: [14, 14], iconAnchor: [7, 7], popupAnchor: [0, -10]
+  });
+  L.marker([pt.lat, pt.lng], { icon: icon })
+    .bindPopup(
+      '<div style="font-family:Inter,sans-serif;min-width:140px;">' +
+      '<div style="font-family:monospace;font-weight:700;color:#EF4444;font-size:13px;">⛔ ' + pt.ip + '</div>' +
+      '<div style="color:#94A3B8;font-size:12px;margin-top:4px;">📍 ' + pt.country + '</div>' +
+      '<div style="color:#F59E0B;font-size:11px;margin-top:4px;font-weight:600;">Status: BLOCKED</div>' +
+      '</div>'
+    )
+    .addTo(tmMap);
+});
+
+/* ── Dashed attack lines ── */
+for (var i = 0; i < ALL_POINTS.length; i++) {
+  for (var j = i + 1; j < ALL_POINTS.length; j++) {
+    L.polyline(
+      [[ALL_POINTS[i].lat, ALL_POINTS[i].lng], [ALL_POINTS[j].lat, ALL_POINTS[j].lng]],
+      { color: '#EF4444', weight: 1, opacity: 0.3, dashArray: '6 8' }
+    ).addTo(tmMap);
+  }
+}
+
+/* ── Region filter ── */
+var REGIONS = {
+  'global': { center: [20, 0],    zoom: 2 },
+  'na':     { center: [40, -100], zoom: 3 },
+  'eu':     { center: [54, 15],   zoom: 4 },
+  'as':     { center: [34, 100],  zoom: 3 },
+  'af':     { center: [0, 20],    zoom: 3 }
+};
+document.getElementById('region-select').addEventListener('change', function() {
+  var v = REGIONS[this.value];
+  if (v) tmMap.flyTo(v.center, v.zoom, { duration: 1.2 });
+});
+
+/* ── CSS animation for markers ── */
+var markerStyle = document.createElement('style');
+markerStyle.textContent =
+  '@keyframes markerPulse {' +
+    '0%,100%{box-shadow:0 0 8px #EF4444,0 0 14px rgba(239,68,68,0.4);}' +
+    '50%{box-shadow:0 0 16px #EF4444,0 0 28px rgba(239,68,68,0.7);}' +
+  '}';
+document.head.appendChild(markerStyle);
+
+/* ── Fetch blocked IPs → update counter + ip grid ── */
+function fetchBlockedIPs() {
+  fetch('/api/blocked-ips')
+    .then(function(r) { return r.json(); })
+    .then(function(data) {
+      var ips = Array.isArray(data) ? data : [];
+      document.getElementById('counter-num').textContent = ips.length;
+
+      var grid = document.getElementById('ip-grid');
+      if (ips.length === 0) {
+        grid.innerHTML = '<span class="ip-empty">No IPs currently blocked.</span>';
+        return;
+      }
+      grid.innerHTML = ips.map(function(ip) {
+        var geo = IP_GEO[ip];
+        var country = geo ? geo.country : 'Unknown';
+        return '<div class="ip-card">' +
+          '<div class="ip-card-ip">' + ip + '</div>' +
+          '<div class="ip-card-country">📍 ' + country + '</div>' +
+          '<div class="ip-card-status">ACCESS DENIED</div>' +
+        '</div>';
+      }).join('');
+    })
+    .catch(function(e) { console.error('[SIEM] blocked IPs error', e); });
+}
+
+fetchBlockedIPs();
+setInterval(fetchBlockedIPs, 10000);
+</script>
+
+<script>
+/* ── PROFILE DROPDOWN ── */
+function toggleDropdown(id) {
+  var all = ['sidebar-profile-dropdown', 'navbar-profile-dropdown'];
+  all.forEach(function(did) {
+    var el = document.getElementById(did);
+    if (!el) return;
+    if (did === id) {
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.profile-trigger')) {
+    ['sidebar-profile-dropdown','navbar-profile-dropdown'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+});
+</script>
+{% endblock %}

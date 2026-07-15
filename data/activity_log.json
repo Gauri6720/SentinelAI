@@ -1,0 +1,302 @@
+[
+  {
+    "timestamp": "2026-07-05 23:44:11",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:10] INFO     | GET /home | IP: 172.16.254."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:11",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:10] INFO     | GET /home | IP: 172.16.254."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:12",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:12] INFO     | POST /contact | IP: 172.16."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:12",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:12] INFO     | POST /contact | IP: 172.16."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:14",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:14] INFO     | GET /about | IP: 203.0.113."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:14",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:14] INFO     | GET /about | IP: 203.0.113."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:16",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:16] INFO     | GET /about | IP: 172.16.254"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:16",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:16] INFO     | GET /about | IP: 172.16.254"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:18",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:18] CRITICAL | DDoS pattern detected | IP:"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:18",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:18] CRITICAL | DDoS pattern detected | IP:"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:20",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:20] INFO     | GET /home | IP: 198.51.100."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:20",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:20] INFO     | GET /home | IP: 198.51.100."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:22",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:22] INFO     | GET /home | IP: 10.0.0.25 |"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:22",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:22] INFO     | GET /home | IP: 10.0.0.25 |"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:24",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:24] CRITICAL | DDoS pattern detected | IP:"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:24",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:24] CRITICAL | DDoS pattern detected | IP:"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:27",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:26] INFO     | GET /about | IP: 198.51.100"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:27",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:26] INFO     | GET /about | IP: 198.51.100"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:28",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:28] CRITICAL | Brute force attack detected"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:28",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:28] CRITICAL | Brute force attack detected"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:30",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:30] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:30",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:30] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:32",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:32] CRITICAL | Directory traversal attack "
+  },
+  {
+    "timestamp": "2026-07-05 23:44:33",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:32] CRITICAL | Directory traversal attack "
+  },
+  {
+    "timestamp": "2026-07-05 23:44:35",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:34] ERROR    | Port scan detected | IP: 19"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:35",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:34] ERROR    | Port scan detected | IP: 19"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:36",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:36] CRITICAL | Directory traversal attack "
+  },
+  {
+    "timestamp": "2026-07-05 23:44:36",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:36] CRITICAL | Directory traversal attack "
+  },
+  {
+    "timestamp": "2026-07-05 23:44:38",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:38] INFO     | POST /contact | IP: 172.16."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:38",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:38] INFO     | POST /contact | IP: 172.16."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:40",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:40] WARNING  | Multiple failed login attem"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:40",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:40] WARNING  | Multiple failed login attem"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:42",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:42] ERROR    | SQL Injection attempt detec"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:42",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:42] ERROR    | SQL Injection attempt detec"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:45",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:44] WARNING  | Failed SSH login | IP: 45.3"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:45",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:44] WARNING  | Failed SSH login | IP: 45.3"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:47",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:46] INFO     | GET /home | IP: 203.0.113.4"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:47",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:46] INFO     | GET /home | IP: 203.0.113.4"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:48",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:48] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:48",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:48] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:50",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:50] WARNING  | Multiple failed login attem"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:50",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:50] WARNING  | Multiple failed login attem"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:52",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:52] WARNING  | Failed SSH login | IP: 103."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:52",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:52] WARNING  | Failed SSH login | IP: 103."
+  },
+  {
+    "timestamp": "2026-07-05 23:44:54",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:54] ERROR    | XSS attack attempt | IP: 91"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:54",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:54] ERROR    | XSS attack attempt | IP: 91"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:57",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:56] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:57",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:56] INFO     | GET /about | IP: 192.0.2.88"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:58",
+    "agent": "Monitor Agent",
+    "action": "New log detected",
+    "detail": "[2026-07-05 23:44:58] INFO     | GET /home | IP: 10.0.0.25 |"
+  },
+  {
+    "timestamp": "2026-07-05 23:44:58",
+    "agent": "Analyst Agent",
+    "action": "Analyzing log",
+    "detail": "[2026-07-05 23:44:58] INFO     | GET /home | IP: 10.0.0.25 |"
+  }
+]

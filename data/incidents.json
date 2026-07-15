@@ -1,0 +1,2492 @@
+[
+  {
+    "id": "INC-001",
+    "timestamp": "2026-07-05 22:13:26",
+    "log_entry": "[2026-07-05 22:09:51] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 375/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Extremely high request rate indicates DDoS attack"
+  },
+  {
+    "id": "INC-002",
+    "timestamp": "2026-07-05 22:20:57",
+    "log_entry": "[2026-07-05 22:20:55] ERROR    | XSS attack attempt | IP: 45.33.32.156 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-003",
+    "timestamp": "2026-07-05 22:21:02",
+    "log_entry": "[2026-07-05 22:21:01] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-004",
+    "timestamp": "2026-07-05 22:21:06",
+    "log_entry": "[2026-07-05 22:21:05] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 922",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High number of failed SSH login attempts from a single IP"
+  },
+  {
+    "id": "INC-005",
+    "timestamp": "2026-07-05 22:21:08",
+    "log_entry": "[2026-07-05 22:21:07] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 968",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-006",
+    "timestamp": "2026-07-05 22:21:12",
+    "log_entry": "[2026-07-05 22:21:11] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-007",
+    "timestamp": "2026-07-05 22:21:16",
+    "log_entry": "[2026-07-05 22:21:15] WARNING  | Failed SSH login | IP: 185.220.101.45 | Username: root | Attempt: 359",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-008",
+    "timestamp": "2026-07-05 22:21:22",
+    "log_entry": "[2026-07-05 22:21:21] ERROR    | Port scan detected | IP: 91.108.4.1 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-009",
+    "timestamp": "2026-07-05 22:21:30",
+    "log_entry": "[2026-07-05 22:21:29] ERROR    | Port scan detected | IP: 194.165.16.11 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-010",
+    "timestamp": "2026-07-05 22:21:32",
+    "log_entry": "[2026-07-05 22:21:31] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-011",
+    "timestamp": "2026-07-05 22:21:34",
+    "log_entry": "[2026-07-05 22:21:33] ERROR    | Port scan detected | IP: 91.108.4.1 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-012",
+    "timestamp": "2026-07-05 22:21:36",
+    "log_entry": "[2026-07-05 22:21:35] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-013",
+    "timestamp": "2026-07-05 22:21:40",
+    "log_entry": "[2026-07-05 22:21:39] CRITICAL | Directory traversal attack | IP: 103.21.244.0 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-014",
+    "timestamp": "2026-07-05 22:21:42",
+    "log_entry": "[2026-07-05 22:21:41] ERROR    | SQL Injection attempt detected | IP: 45.33.32.156 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-015",
+    "timestamp": "2026-07-05 22:21:44",
+    "log_entry": "[2026-07-05 22:21:43] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 333",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-016",
+    "timestamp": "2026-07-05 22:21:46",
+    "log_entry": "[2026-07-05 22:21:45] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 697",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-017",
+    "timestamp": "2026-07-05 22:21:48",
+    "log_entry": "[2026-07-05 22:21:47] WARNING  | Multiple failed login attempts | IP: 185.220.101.45 | Count: 122",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-018",
+    "timestamp": "2026-07-05 22:21:50",
+    "log_entry": "[2026-07-05 22:21:49] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 346",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-019",
+    "timestamp": "2026-07-05 22:21:52",
+    "log_entry": "[2026-07-05 22:21:51] CRITICAL | Brute force attack detected | 185.220.101.45 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-020",
+    "timestamp": "2026-07-05 22:21:54",
+    "log_entry": "[2026-07-05 22:21:53] ERROR    | XSS attack attempt | IP: 194.165.16.11 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-021",
+    "timestamp": "2026-07-05 22:21:57",
+    "log_entry": "[2026-07-05 22:21:55] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 346/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-022",
+    "timestamp": "2026-07-05 22:21:58",
+    "log_entry": "[2026-07-05 22:21:57] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 702",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-023",
+    "timestamp": "2026-07-05 22:22:01",
+    "log_entry": "[2026-07-05 22:22:00] ERROR    | XSS attack attempt | IP: 103.21.244.0 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "The log entry contains a script tag with a malicious payload."
+  },
+  {
+    "id": "INC-024",
+    "timestamp": "2026-07-05 22:22:04",
+    "log_entry": "[2026-07-05 22:22:04] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 708/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-025",
+    "timestamp": "2026-07-05 22:22:10",
+    "log_entry": "[2026-07-05 22:22:10] ERROR    | SQL Injection attempt detected | IP: 103.21.244.0 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-026",
+    "timestamp": "2026-07-05 22:22:12",
+    "log_entry": "[2026-07-05 22:22:12] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 223",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-027",
+    "timestamp": "2026-07-05 22:22:15",
+    "log_entry": "[2026-07-05 22:22:14] WARNING  | Failed SSH login | IP: 185.220.101.45 | Username: root | Attempt: 105",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Excessive failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-028",
+    "timestamp": "2026-07-05 22:22:16",
+    "log_entry": "[2026-07-05 22:22:16] CRITICAL | DDoS pattern detected | IP: 91.108.4.1 | Requests: 143/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-029",
+    "timestamp": "2026-07-05 22:22:18",
+    "log_entry": "[2026-07-05 22:22:18] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 246",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-030",
+    "timestamp": "2026-07-05 22:22:21",
+    "log_entry": "[2026-07-05 22:22:20] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 595/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-031",
+    "timestamp": "2026-07-05 22:22:24",
+    "log_entry": "[2026-07-05 22:22:24] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-032",
+    "timestamp": "2026-07-05 22:22:27",
+    "log_entry": "[2026-07-05 22:22:26] CRITICAL | DDoS pattern detected | IP: 91.108.4.1 | Requests: 880/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-033",
+    "timestamp": "2026-07-05 22:22:33",
+    "log_entry": "[2026-07-05 22:22:32] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 182/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-034",
+    "timestamp": "2026-07-05 22:22:34",
+    "log_entry": "[2026-07-05 22:22:34] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-035",
+    "timestamp": "2026-07-05 22:22:39",
+    "log_entry": "[2026-07-05 22:22:38] WARNING  | Failed SSH login | IP: 192.168.1.105 | Username: root | Attempt: 816",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-036",
+    "timestamp": "2026-07-05 22:22:45",
+    "log_entry": "[2026-07-05 22:22:44] ERROR    | SQL Injection attempt detected | IP: 192.168.1.105 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-037",
+    "timestamp": "2026-07-05 22:22:46",
+    "log_entry": "[2026-07-05 22:22:46] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-038",
+    "timestamp": "2026-07-05 22:22:52",
+    "log_entry": "[2026-07-05 22:22:52] ERROR    | XSS attack attempt | IP: 185.220.101.45 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-039",
+    "timestamp": "2026-07-05 22:23:00",
+    "log_entry": "[2026-07-05 22:23:00] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 188",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-040",
+    "timestamp": "2026-07-05 22:23:03",
+    "log_entry": "[2026-07-05 22:23:02] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-041",
+    "timestamp": "2026-07-05 22:23:05",
+    "log_entry": "[2026-07-05 22:23:04] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-042",
+    "timestamp": "2026-07-05 22:23:06",
+    "log_entry": "[2026-07-05 22:23:06] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 865",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-043",
+    "timestamp": "2026-07-05 22:23:09",
+    "log_entry": "[2026-07-05 22:23:08] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 332",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple failed login attempts exceeded a reasonable threshold."
+  },
+  {
+    "id": "INC-044",
+    "timestamp": "2026-07-05 22:23:12",
+    "log_entry": "[2026-07-05 22:23:12] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-045",
+    "timestamp": "2026-07-05 22:23:15",
+    "log_entry": "[2026-07-05 22:23:14] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-046",
+    "timestamp": "2026-07-05 22:23:18",
+    "log_entry": "[2026-07-05 22:23:18] ERROR    | SQL Injection attempt detected | IP: 185.220.101.45 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-047",
+    "timestamp": "2026-07-05 22:23:27",
+    "log_entry": "[2026-07-05 22:23:26] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 492/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-048",
+    "timestamp": "2026-07-05 22:23:29",
+    "log_entry": "[2026-07-05 22:23:28] CRITICAL | Directory traversal attack | IP: 103.21.244.0 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-049",
+    "timestamp": "2026-07-05 22:23:35",
+    "log_entry": "[2026-07-05 22:23:34] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 274",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-050",
+    "timestamp": "2026-07-05 22:23:37",
+    "log_entry": "[2026-07-05 22:23:36] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-051",
+    "timestamp": "2026-07-05 22:23:41",
+    "log_entry": "[2026-07-05 22:23:38] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 356",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-052",
+    "timestamp": "2026-07-05 22:23:43",
+    "log_entry": "[2026-07-05 22:23:40] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 655/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-053",
+    "timestamp": "2026-07-05 22:23:48",
+    "log_entry": "[2026-07-05 22:23:44] ERROR    | SQL Injection attempt detected | IP: 192.168.1.105 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-054",
+    "timestamp": "2026-07-05 22:23:53",
+    "log_entry": "[2026-07-05 22:23:48] ERROR    | XSS attack attempt | IP: 45.33.32.156 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Script tag detected in payload"
+  },
+  {
+    "id": "INC-055",
+    "timestamp": "2026-07-05 22:23:58",
+    "log_entry": "[2026-07-05 22:23:52] CRITICAL | Directory traversal attack | IP: 192.168.1.105 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-056",
+    "timestamp": "2026-07-05 22:24:00",
+    "log_entry": "[2026-07-05 22:23:54] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-057",
+    "timestamp": "2026-07-05 22:24:05",
+    "log_entry": "[2026-07-05 22:23:58] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 13/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-058",
+    "timestamp": "2026-07-05 22:24:10",
+    "log_entry": "[2026-07-05 22:24:02] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-059",
+    "timestamp": "2026-07-05 22:24:12",
+    "log_entry": "[2026-07-05 22:24:04] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-060",
+    "timestamp": "2026-07-05 22:24:15",
+    "log_entry": "[2026-07-05 22:24:06] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-061",
+    "timestamp": "2026-07-05 22:24:17",
+    "log_entry": "[2026-07-05 22:24:08] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 136/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-062",
+    "timestamp": "2026-07-05 22:24:21",
+    "log_entry": "[2026-07-05 22:24:10] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempted to access sensitive system file"
+  },
+  {
+    "id": "INC-063",
+    "timestamp": "2026-07-05 22:24:23",
+    "log_entry": "[2026-07-05 22:24:12] ERROR    | XSS attack attempt | IP: 185.220.101.45 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-064",
+    "timestamp": "2026-07-05 22:24:30",
+    "log_entry": "[2026-07-05 22:24:18] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-065",
+    "timestamp": "2026-07-05 22:24:35",
+    "log_entry": "[2026-07-05 22:24:22] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 747/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-066",
+    "timestamp": "2026-07-05 22:24:43",
+    "log_entry": "[2026-07-05 22:24:28] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 165",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-067",
+    "timestamp": "2026-07-05 22:24:47",
+    "log_entry": "[2026-07-05 22:24:32] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 24",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-068",
+    "timestamp": "2026-07-05 22:24:50",
+    "log_entry": "[2026-07-05 22:24:34] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-069",
+    "timestamp": "2026-07-05 22:24:52",
+    "log_entry": "[2026-07-05 22:24:36] ERROR    | Port scan detected | IP: 91.108.4.1 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-070",
+    "timestamp": "2026-07-05 22:24:54",
+    "log_entry": "[2026-07-05 22:24:38] ERROR    | Port scan detected | IP: 103.21.244.0 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-071",
+    "timestamp": "2026-07-05 22:24:57",
+    "log_entry": "[2026-07-05 22:24:40] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 723",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-072",
+    "timestamp": "2026-07-05 22:25:00",
+    "log_entry": "[2026-07-05 22:24:42] ERROR    | Port scan detected | IP: 91.108.4.1 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-073",
+    "timestamp": "2026-07-05 22:25:02",
+    "log_entry": "[2026-07-05 22:24:44] WARNING  | Failed SSH login | IP: 192.168.1.105 | Username: root | Attempt: 629",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-074",
+    "timestamp": "2026-07-05 22:25:07",
+    "log_entry": "[2026-07-05 22:24:48] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-075",
+    "timestamp": "2026-07-05 22:25:12",
+    "log_entry": "[2026-07-05 22:24:52] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 128",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-076",
+    "timestamp": "2026-07-05 22:25:17",
+    "log_entry": "[2026-07-05 22:24:56] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-077",
+    "timestamp": "2026-07-05 22:25:24",
+    "log_entry": "[2026-07-05 22:25:02] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 269/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-078",
+    "timestamp": "2026-07-05 22:25:26",
+    "log_entry": "[2026-07-05 22:25:04] ERROR    | SQL Injection attempt detected | IP: 192.168.1.105 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-079",
+    "timestamp": "2026-07-05 22:25:34",
+    "log_entry": "[2026-07-05 22:25:10] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 235",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-080",
+    "timestamp": "2026-07-05 22:25:41",
+    "log_entry": "[2026-07-05 22:25:16] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 589/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-081",
+    "timestamp": "2026-07-05 22:25:46",
+    "log_entry": "[2026-07-05 22:25:20] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-082",
+    "timestamp": "2026-07-05 22:25:48",
+    "log_entry": "[2026-07-05 22:25:22] ERROR    | SQL Injection attempt detected | IP: 45.33.32.156 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-083",
+    "timestamp": "2026-07-05 22:25:50",
+    "log_entry": "[2026-07-05 22:25:24] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-084",
+    "timestamp": "2026-07-05 22:25:57",
+    "log_entry": "[2026-07-05 22:25:30] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 310",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-085",
+    "timestamp": "2026-07-05 22:26:00",
+    "log_entry": "[2026-07-05 22:25:32] ERROR    | Port scan detected | IP: 103.21.244.0 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-086",
+    "timestamp": "2026-07-05 22:26:02",
+    "log_entry": "[2026-07-05 22:25:34] ERROR    | XSS attack attempt | IP: 185.220.101.45 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "The log entry contains a script tag with a malicious payload."
+  },
+  {
+    "id": "INC-087",
+    "timestamp": "2026-07-05 22:26:05",
+    "log_entry": "[2026-07-05 22:25:36] ERROR    | SQL Injection attempt detected | IP: 103.21.244.0 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-088",
+    "timestamp": "2026-07-05 22:26:08",
+    "log_entry": "[2026-07-05 22:25:38] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-089",
+    "timestamp": "2026-07-05 22:26:10",
+    "log_entry": "[2026-07-05 22:25:40] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 655",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts exceeded threshold"
+  },
+  {
+    "id": "INC-090",
+    "timestamp": "2026-07-05 22:26:12",
+    "log_entry": "[2026-07-05 22:25:42] ERROR    | XSS attack attempt | IP: 194.165.16.11 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-091",
+    "timestamp": "2026-07-05 22:26:15",
+    "log_entry": "[2026-07-05 22:25:44] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 459",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-092",
+    "timestamp": "2026-07-05 22:26:17",
+    "log_entry": "[2026-07-05 22:25:46] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-093",
+    "timestamp": "2026-07-05 22:26:20",
+    "log_entry": "[2026-07-05 22:25:48] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-094",
+    "timestamp": "2026-07-05 22:26:23",
+    "log_entry": "[2026-07-05 22:25:50] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempted to access sensitive system file"
+  },
+  {
+    "id": "INC-095",
+    "timestamp": "2026-07-05 22:26:27",
+    "log_entry": "[2026-07-05 22:25:54] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 429/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-096",
+    "timestamp": "2026-07-05 22:26:32",
+    "log_entry": "[2026-07-05 22:25:58] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-097",
+    "timestamp": "2026-07-05 22:26:35",
+    "log_entry": "[2026-07-05 22:26:00] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-098",
+    "timestamp": "2026-07-05 22:26:37",
+    "log_entry": "[2026-07-05 22:26:02] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 887/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-099",
+    "timestamp": "2026-07-05 22:26:40",
+    "log_entry": "[2026-07-05 22:26:04] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-100",
+    "timestamp": "2026-07-05 22:27:00",
+    "log_entry": "[2026-07-05 22:26:20] ERROR    | SQL Injection attempt detected | IP: 192.168.1.105 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-101",
+    "timestamp": "2026-07-05 22:27:05",
+    "log_entry": "[2026-07-05 22:26:24] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 958/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-102",
+    "timestamp": "2026-07-05 22:27:43",
+    "log_entry": "[2026-07-05 22:26:26] ERROR    | SQL Injection attempt detected | IP: 185.220.101.45 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-103",
+    "timestamp": "2026-07-05 22:27:48",
+    "log_entry": "[2026-07-05 22:26:32] ERROR    | SQL Injection attempt detected | IP: 45.33.32.156 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-104",
+    "timestamp": "2026-07-05 22:27:49",
+    "log_entry": "[2026-07-05 22:26:34] WARNING  | Failed SSH login | IP: 192.168.1.105 | Username: root | Attempt: 996",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Excessive failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-105",
+    "timestamp": "2026-07-05 22:27:50",
+    "log_entry": "[2026-07-05 22:26:36] CRITICAL | Directory traversal attack | IP: 103.21.244.0 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-106",
+    "timestamp": "2026-07-05 22:27:51",
+    "log_entry": "[2026-07-05 22:26:40] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 915",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-107",
+    "timestamp": "2026-07-05 22:27:52",
+    "log_entry": "[2026-07-05 22:26:47] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 308",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-108",
+    "timestamp": "2026-07-05 22:27:53",
+    "log_entry": "[2026-07-05 22:26:49] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-109",
+    "timestamp": "2026-07-05 22:27:55",
+    "log_entry": "[2026-07-05 22:26:55] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 925",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-110",
+    "timestamp": "2026-07-05 22:27:55",
+    "log_entry": "[2026-07-05 22:26:59] ERROR    | XSS attack attempt | IP: 103.21.244.0 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-111",
+    "timestamp": "2026-07-05 22:27:56",
+    "log_entry": "[2026-07-05 22:27:01] CRITICAL | Directory traversal attack | IP: 185.220.101.45 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Attempted to access sensitive system file"
+  },
+  {
+    "id": "INC-112",
+    "timestamp": "2026-07-05 22:27:56",
+    "log_entry": "[2026-07-05 22:27:03] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 421/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-113",
+    "timestamp": "2026-07-05 22:27:59",
+    "log_entry": "[2026-07-05 22:27:05] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 125",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-114",
+    "timestamp": "2026-07-05 22:28:11",
+    "log_entry": "[2026-07-05 22:27:15] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 372",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-115",
+    "timestamp": "2026-07-05 22:28:13",
+    "log_entry": "[2026-07-05 22:27:17] WARNING  | Failed SSH login | IP: 103.21.244.0 | Username: root | Attempt: 699",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-116",
+    "timestamp": "2026-07-05 22:28:19",
+    "log_entry": "[2026-07-05 22:27:21] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-117",
+    "timestamp": "2026-07-05 22:28:21",
+    "log_entry": "[2026-07-05 22:27:23] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-118",
+    "timestamp": "2026-07-05 22:28:31",
+    "log_entry": "[2026-07-05 22:27:31] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 544/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-119",
+    "timestamp": "2026-07-05 22:28:36",
+    "log_entry": "[2026-07-05 22:27:35] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-120",
+    "timestamp": "2026-07-05 22:28:38",
+    "log_entry": "[2026-07-05 22:27:37] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-121",
+    "timestamp": "2026-07-05 22:28:46",
+    "log_entry": "[2026-07-05 22:27:43] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-122",
+    "timestamp": "2026-07-05 22:28:48",
+    "log_entry": "[2026-07-05 22:27:45] CRITICAL | Brute force attack detected | 194.165.16.11 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-123",
+    "timestamp": "2026-07-05 22:28:50",
+    "log_entry": "[2026-07-05 22:27:47] ERROR    | Port scan detected | IP: 103.21.244.0 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-124",
+    "timestamp": "2026-07-05 22:28:53",
+    "log_entry": "[2026-07-05 22:27:49] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 582/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-125",
+    "timestamp": "2026-07-05 22:28:56",
+    "log_entry": "[2026-07-05 22:27:51] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-126",
+    "timestamp": "2026-07-05 22:29:08",
+    "log_entry": "[2026-07-05 22:28:01] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 516/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-127",
+    "timestamp": "2026-07-05 22:29:10",
+    "log_entry": "[2026-07-05 22:28:03] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-128",
+    "timestamp": "2026-07-05 22:29:13",
+    "log_entry": "[2026-07-05 22:28:05] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-129",
+    "timestamp": "2026-07-05 22:29:15",
+    "log_entry": "[2026-07-05 22:28:07] ERROR    | SQL Injection attempt detected | IP: 185.220.101.45 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-130",
+    "timestamp": "2026-07-05 22:29:18",
+    "log_entry": "[2026-07-05 22:28:09] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-131",
+    "timestamp": "2026-07-05 22:29:21",
+    "log_entry": "[2026-07-05 22:28:11] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 388",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-132",
+    "timestamp": "2026-07-05 22:29:26",
+    "log_entry": "[2026-07-05 22:28:15] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-133",
+    "timestamp": "2026-07-05 22:29:29",
+    "log_entry": "[2026-07-05 22:28:17] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 898/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-134",
+    "timestamp": "2026-07-05 22:29:32",
+    "log_entry": "[2026-07-05 22:28:19] WARNING  | Failed SSH login | IP: 103.21.244.0 | Username: root | Attempt: 964",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High number of failed SSH login attempts from a single IP"
+  },
+  {
+    "id": "INC-135",
+    "timestamp": "2026-07-05 22:29:34",
+    "log_entry": "[2026-07-05 22:28:21] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 318/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-136",
+    "timestamp": "2026-07-05 22:29:36",
+    "log_entry": "[2026-07-05 22:28:23] CRITICAL | DDoS pattern detected | IP: 185.220.101.45 | Requests: 160/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High request rate from a single IP indicates malicious activity"
+  },
+  {
+    "id": "INC-137",
+    "timestamp": "2026-07-05 22:29:39",
+    "log_entry": "[2026-07-05 22:28:25] ERROR    | SQL Injection attempt detected | IP: 185.220.101.45 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-138",
+    "timestamp": "2026-07-05 22:29:42",
+    "log_entry": "[2026-07-05 22:28:27] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-139",
+    "timestamp": "2026-07-05 22:29:44",
+    "log_entry": "[2026-07-05 22:28:29] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-140",
+    "timestamp": "2026-07-05 22:29:47",
+    "log_entry": "[2026-07-05 22:28:31] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 69",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-141",
+    "timestamp": "2026-07-05 22:29:52",
+    "log_entry": "[2026-07-05 22:28:35] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 948/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-142",
+    "timestamp": "2026-07-05 22:29:55",
+    "log_entry": "[2026-07-05 22:28:37] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 312/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-143",
+    "timestamp": "2026-07-05 22:29:59",
+    "log_entry": "[2026-07-05 22:28:41] CRITICAL | Directory traversal attack | IP: 185.220.101.45 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-144",
+    "timestamp": "2026-07-05 22:30:02",
+    "log_entry": "[2026-07-05 22:28:43] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-145",
+    "timestamp": "2026-07-05 22:30:04",
+    "log_entry": "[2026-07-05 22:28:45] CRITICAL | Directory traversal attack | IP: 103.21.244.0 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-146",
+    "timestamp": "2026-07-05 22:30:07",
+    "log_entry": "[2026-07-05 22:28:47] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 262/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-147",
+    "timestamp": "2026-07-05 22:30:12",
+    "log_entry": "[2026-07-05 22:28:51] ERROR    | SQL Injection attempt detected | IP: 45.33.32.156 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-148",
+    "timestamp": "2026-07-05 22:30:17",
+    "log_entry": "[2026-07-05 22:28:55] ERROR    | XSS attack attempt | IP: 192.168.1.105 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-149",
+    "timestamp": "2026-07-05 22:30:22",
+    "log_entry": "[2026-07-05 22:28:59] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 243",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts from a single IP address."
+  },
+  {
+    "id": "INC-150",
+    "timestamp": "2026-07-05 22:30:28",
+    "log_entry": "[2026-07-05 22:29:03] ERROR    | SQL Injection attempt detected | IP: 185.220.101.45 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-151",
+    "timestamp": "2026-07-05 22:30:30",
+    "log_entry": "[2026-07-05 22:29:05] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempted to access sensitive system file"
+  },
+  {
+    "id": "INC-152",
+    "timestamp": "2026-07-05 22:30:35",
+    "log_entry": "[2026-07-05 22:29:09] ERROR    | SQL Injection attempt detected | IP: 192.168.1.105 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-153",
+    "timestamp": "2026-07-05 22:30:38",
+    "log_entry": "[2026-07-05 22:29:11] ERROR    | Port scan detected | IP: 103.21.244.0 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-154",
+    "timestamp": "2026-07-05 22:30:40",
+    "log_entry": "[2026-07-05 22:29:13] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts in a short time frame"
+  },
+  {
+    "id": "INC-155",
+    "timestamp": "2026-07-05 22:30:46",
+    "log_entry": "[2026-07-05 22:29:17] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 42/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-156",
+    "timestamp": "2026-07-05 22:30:48",
+    "log_entry": "[2026-07-05 22:29:19] WARNING  | Failed SSH login | IP: 91.108.4.1 | Username: root | Attempt: 132",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-157",
+    "timestamp": "2026-07-05 22:30:53",
+    "log_entry": "[2026-07-05 22:29:23] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts in a short time frame"
+  },
+  {
+    "id": "INC-158",
+    "timestamp": "2026-07-05 22:30:58",
+    "log_entry": "[2026-07-05 22:29:27] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-159",
+    "timestamp": "2026-07-05 22:31:01",
+    "log_entry": "[2026-07-05 22:29:29] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-160",
+    "timestamp": "2026-07-05 22:31:03",
+    "log_entry": "[2026-07-05 22:29:31] WARNING  | Multiple failed login attempts | IP: 185.220.101.45 | Count: 540",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Excessive failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-161",
+    "timestamp": "2026-07-05 22:31:06",
+    "log_entry": "[2026-07-05 22:29:33] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 409/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-162",
+    "timestamp": "2026-07-05 22:31:08",
+    "log_entry": "[2026-07-05 22:29:35] CRITICAL | Brute force attack detected | 194.165.16.11 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-163",
+    "timestamp": "2026-07-05 22:31:13",
+    "log_entry": "[2026-07-05 22:29:39] ERROR    | Port scan detected | IP: 103.21.244.0 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-164",
+    "timestamp": "2026-07-05 22:31:15",
+    "log_entry": "[2026-07-05 22:29:41] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 540/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-165",
+    "timestamp": "2026-07-05 22:31:28",
+    "log_entry": "[2026-07-05 22:29:51] WARNING  | Failed SSH login | IP: 45.33.32.156 | Username: root | Attempt: 928",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-166",
+    "timestamp": "2026-07-05 22:31:30",
+    "log_entry": "[2026-07-05 22:29:53] ERROR    | Port scan detected | IP: 45.33.32.156 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-167",
+    "timestamp": "2026-07-05 22:31:38",
+    "log_entry": "[2026-07-05 22:29:59] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 471",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-168",
+    "timestamp": "2026-07-05 22:31:40",
+    "log_entry": "[2026-07-05 22:30:01] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 682",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-169",
+    "timestamp": "2026-07-05 22:31:43",
+    "log_entry": "[2026-07-05 22:30:03] ERROR    | XSS attack attempt | IP: 192.168.1.105 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-170",
+    "timestamp": "2026-07-05 22:31:45",
+    "log_entry": "[2026-07-05 22:30:05] CRITICAL | Directory traversal attack | IP: 103.21.244.0 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "The log entry explicitly mentions a directory traversal attack."
+  },
+  {
+    "id": "INC-171",
+    "timestamp": "2026-07-05 22:31:47",
+    "log_entry": "[2026-07-05 22:30:07] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 653/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-172",
+    "timestamp": "2026-07-05 22:31:50",
+    "log_entry": "[2026-07-05 22:30:09] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-173",
+    "timestamp": "2026-07-05 22:31:55",
+    "log_entry": "[2026-07-05 22:30:13] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address"
+  },
+  {
+    "id": "INC-174",
+    "timestamp": "2026-07-05 22:31:58",
+    "log_entry": "[2026-07-05 22:30:15] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "The log entry explicitly mentions a directory traversal attack."
+  },
+  {
+    "id": "INC-175",
+    "timestamp": "2026-07-05 22:32:00",
+    "log_entry": "[2026-07-05 22:30:17] ERROR    | XSS attack attempt | IP: 192.168.1.105 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-176",
+    "timestamp": "2026-07-05 22:32:03",
+    "log_entry": "[2026-07-05 22:30:19] ERROR    | XSS attack attempt | IP: 45.33.32.156 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-177",
+    "timestamp": "2026-07-05 22:32:10",
+    "log_entry": "[2026-07-05 22:30:25] WARNING  | Failed SSH login | IP: 185.220.101.45 | Username: root | Attempt: 525",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-178",
+    "timestamp": "2026-07-05 22:32:13",
+    "log_entry": "[2026-07-05 22:30:27] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 71/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-179",
+    "timestamp": "2026-07-05 22:32:15",
+    "log_entry": "[2026-07-05 22:30:29] WARNING  | Failed SSH login | IP: 185.220.101.45 | Username: root | Attempt: 450",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-180",
+    "timestamp": "2026-07-05 22:32:18",
+    "log_entry": "[2026-07-05 22:30:31] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 609/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-181",
+    "timestamp": "2026-07-05 22:32:20",
+    "log_entry": "[2026-07-05 22:30:33] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-182",
+    "timestamp": "2026-07-05 22:32:26",
+    "log_entry": "[2026-07-05 22:30:37] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-183",
+    "timestamp": "2026-07-05 22:32:31",
+    "log_entry": "[2026-07-05 22:30:41] ERROR    | XSS attack attempt | IP: 103.21.244.0 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-184",
+    "timestamp": "2026-07-05 22:32:34",
+    "log_entry": "[2026-07-05 22:30:43] WARNING  | Failed SSH login | IP: 103.21.244.0 | Username: root | Attempt: 983",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High number of failed SSH login attempts from a single IP"
+  },
+  {
+    "id": "INC-185",
+    "timestamp": "2026-07-05 22:32:39",
+    "log_entry": "[2026-07-05 22:30:47] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-186",
+    "timestamp": "2026-07-05 22:32:41",
+    "log_entry": "[2026-07-05 22:30:49] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-187",
+    "timestamp": "2026-07-05 22:32:44",
+    "log_entry": "[2026-07-05 22:30:51] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-188",
+    "timestamp": "2026-07-05 22:32:48",
+    "log_entry": "[2026-07-05 22:30:55] ERROR    | SQL Injection attempt detected | IP: 103.21.244.0 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-189",
+    "timestamp": "2026-07-05 22:32:53",
+    "log_entry": "[2026-07-05 22:30:59] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempted to access sensitive system file"
+  },
+  {
+    "id": "INC-190",
+    "timestamp": "2026-07-05 22:32:58",
+    "log_entry": "[2026-07-05 22:31:03] CRITICAL | DDoS pattern detected | IP: 91.108.4.1 | Requests: 846/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-191",
+    "timestamp": "2026-07-05 22:33:01",
+    "log_entry": "[2026-07-05 22:31:05] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 652",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-192",
+    "timestamp": "2026-07-05 22:33:06",
+    "log_entry": "[2026-07-05 22:31:09] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 594/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-193",
+    "timestamp": "2026-07-05 22:33:08",
+    "log_entry": "[2026-07-05 22:31:11] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-194",
+    "timestamp": "2026-07-05 22:33:13",
+    "log_entry": "[2026-07-05 22:31:15] ERROR    | Port scan detected | IP: 185.220.101.45 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-195",
+    "timestamp": "2026-07-05 22:33:15",
+    "log_entry": "[2026-07-05 22:31:17] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Script tag detected in payload"
+  },
+  {
+    "id": "INC-196",
+    "timestamp": "2026-07-05 22:33:17",
+    "log_entry": "[2026-07-05 22:31:19] ERROR    | SQL Injection attempt detected | IP: 194.165.16.11 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-197",
+    "timestamp": "2026-07-05 22:33:20",
+    "log_entry": "[2026-07-05 22:31:21] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 555",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-198",
+    "timestamp": "2026-07-05 22:33:30",
+    "log_entry": "[2026-07-05 22:31:29] CRITICAL | DDoS pattern detected | IP: 103.21.244.0 | Requests: 797/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-199",
+    "timestamp": "2026-07-05 22:33:42",
+    "log_entry": "[2026-07-05 22:31:39] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-200",
+    "timestamp": "2026-07-05 22:33:44",
+    "log_entry": "[2026-07-05 22:31:41] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-201",
+    "timestamp": "2026-07-05 22:33:52",
+    "log_entry": "[2026-07-05 22:31:47] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 44",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-202",
+    "timestamp": "2026-07-05 22:33:54",
+    "log_entry": "[2026-07-05 22:31:49] WARNING  | Failed SSH login | IP: 103.21.244.0 | Username: root | Attempt: 102",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-203",
+    "timestamp": "2026-07-05 22:34:07",
+    "log_entry": "[2026-07-05 22:31:59] CRITICAL | Directory traversal attack | IP: 185.220.101.45 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "The log entry explicitly mentions a directory traversal attack."
+  },
+  {
+    "id": "INC-204",
+    "timestamp": "2026-07-05 22:34:09",
+    "log_entry": "[2026-07-05 22:32:01] CRITICAL | Brute force attack detected | 194.165.16.11 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-205",
+    "timestamp": "2026-07-05 22:34:12",
+    "log_entry": "[2026-07-05 22:32:03] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-206",
+    "timestamp": "2026-07-05 22:34:14",
+    "log_entry": "[2026-07-05 22:32:05] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 917",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-207",
+    "timestamp": "2026-07-05 22:34:16",
+    "log_entry": "[2026-07-05 22:32:07] ERROR    | XSS attack attempt | IP: 103.21.244.0 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-208",
+    "timestamp": "2026-07-05 22:34:19",
+    "log_entry": "[2026-07-05 22:32:09] WARNING  | Multiple failed login attempts | IP: 45.33.32.156 | Count: 611",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Multiple failed login attempts exceed normal thresholds"
+  },
+  {
+    "id": "INC-209",
+    "timestamp": "2026-07-05 22:34:21",
+    "log_entry": "[2026-07-05 22:32:11] WARNING  | Multiple failed login attempts | IP: 194.165.16.11 | Count: 367",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-210",
+    "timestamp": "2026-07-05 22:34:23",
+    "log_entry": "[2026-07-05 22:32:13] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 363",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-211",
+    "timestamp": "2026-07-05 22:34:31",
+    "log_entry": "[2026-07-05 22:32:19] CRITICAL | Brute force attack detected | 45.33.32.156 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts from a single IP in a short time frame"
+  },
+  {
+    "id": "INC-212",
+    "timestamp": "2026-07-05 22:34:38",
+    "log_entry": "[2026-07-05 22:32:25] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 111",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-213",
+    "timestamp": "2026-07-05 22:34:54",
+    "log_entry": "[2026-07-05 22:32:40] WARNING  | Multiple failed login attempts | IP: 185.220.101.45 | Count: 585",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-214",
+    "timestamp": "2026-07-05 22:34:59",
+    "log_entry": "[2026-07-05 22:32:44] ERROR    | SQL Injection attempt detected | IP: 194.165.16.11 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-215",
+    "timestamp": "2026-07-05 22:35:05",
+    "log_entry": "[2026-07-05 22:32:46] CRITICAL | DDoS pattern detected | IP: 194.165.16.11 | Requests: 97/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-216",
+    "timestamp": "2026-07-05 22:35:08",
+    "log_entry": "[2026-07-05 22:32:50] ERROR    | SQL Injection attempt detected | IP: 91.108.4.1 | Path: /login?id=1' OR '1'='1",
+    "threat_type": "SQL Injection",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "SQL Injection attempt detected with malicious query parameter"
+  },
+  {
+    "id": "INC-217",
+    "timestamp": "2026-07-05 22:35:13",
+    "log_entry": "[2026-07-05 22:32:54] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 301/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-218",
+    "timestamp": "2026-07-05 22:35:16",
+    "log_entry": "[2026-07-05 22:32:56] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-219",
+    "timestamp": "2026-07-05 22:35:21",
+    "log_entry": "[2026-07-05 22:33:00] WARNING  | Multiple failed login attempts | IP: 185.220.101.45 | Count: 439",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-220",
+    "timestamp": "2026-07-05 22:35:23",
+    "log_entry": "[2026-07-05 22:33:02] WARNING  | Multiple failed login attempts | IP: 91.108.4.1 | Count: 698",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High number of failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-221",
+    "timestamp": "2026-07-05 22:35:33",
+    "log_entry": "[2026-07-05 22:33:10] WARNING  | Failed SSH login | IP: 194.165.16.11 | Username: root | Attempt: 848",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "High number of failed SSH login attempts from a single IP address"
+  },
+  {
+    "id": "INC-222",
+    "timestamp": "2026-07-05 22:35:39",
+    "log_entry": "[2026-07-05 22:33:14] ERROR    | XSS attack attempt | IP: 192.168.1.105 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-223",
+    "timestamp": "2026-07-05 22:35:42",
+    "log_entry": "[2026-07-05 22:33:16] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-224",
+    "timestamp": "2026-07-05 22:35:47",
+    "log_entry": "[2026-07-05 22:33:20] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-225",
+    "timestamp": "2026-07-05 22:35:50",
+    "log_entry": "[2026-07-05 22:33:22] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 250/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-226",
+    "timestamp": "2026-07-05 22:35:55",
+    "log_entry": "[2026-07-05 22:33:26] CRITICAL | Directory traversal attack | IP: 45.33.32.156 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "Attempt to access sensitive system file"
+  },
+  {
+    "id": "INC-227",
+    "timestamp": "2026-07-05 22:36:00",
+    "log_entry": "[2026-07-05 22:33:30] CRITICAL | DDoS pattern detected | IP: 45.33.32.156 | Requests: 967/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "45.33.32.156",
+    "reason": "High request rate indicates malicious traffic"
+  },
+  {
+    "id": "INC-228",
+    "timestamp": "2026-07-05 22:36:06",
+    "log_entry": "[2026-07-05 22:33:34] ERROR    | XSS attack attempt | IP: 91.108.4.1 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-229",
+    "timestamp": "2026-07-05 22:36:16",
+    "log_entry": "[2026-07-05 22:33:42] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 600",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "600 failed login attempts from a single IP"
+  },
+  {
+    "id": "INC-230",
+    "timestamp": "2026-07-05 22:36:21",
+    "log_entry": "[2026-07-05 22:33:46] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-231",
+    "timestamp": "2026-07-05 22:36:27",
+    "log_entry": "[2026-07-05 22:33:50] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-232",
+    "timestamp": "2026-07-05 22:36:29",
+    "log_entry": "[2026-07-05 22:33:52] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-233",
+    "timestamp": "2026-07-05 22:36:32",
+    "log_entry": "[2026-07-05 22:33:54] CRITICAL | Brute force attack detected | 194.165.16.11 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-234",
+    "timestamp": "2026-07-05 22:36:37",
+    "log_entry": "[2026-07-05 22:33:58] CRITICAL | Directory traversal attack | IP: 91.108.4.1 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "Attempted access to sensitive system file"
+  },
+  {
+    "id": "INC-235",
+    "timestamp": "2026-07-05 22:36:40",
+    "log_entry": "[2026-07-05 22:34:00] WARNING  | Failed SSH login | IP: 185.220.101.45 | Username: root | Attempt: 278",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "185.220.101.45",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-236",
+    "timestamp": "2026-07-05 22:36:59",
+    "log_entry": "[2026-07-05 22:34:04] CRITICAL | Directory traversal attack | IP: 194.165.16.11 | Path: /../../../etc/passwd",
+    "threat_type": "Directory Traversal",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "194.165.16.11",
+    "reason": "Attempt to access sensitive system files"
+  },
+  {
+    "id": "INC-237",
+    "timestamp": "2026-07-05 22:44:25",
+    "log_entry": "[2026-07-05 22:40:18] ERROR    | Port scan detected | IP: 192.168.1.105 | Scanned ports: 22,80,443,3306,8080",
+    "threat_type": "Port Scan",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple ports were scanned from a single IP address."
+  },
+  {
+    "id": "INC-238",
+    "timestamp": "2026-07-05 22:47:17",
+    "log_entry": "[2026-07-05 22:46:15] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 169",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Multiple failed login attempts exceeded a reasonable threshold"
+  },
+  {
+    "id": "INC-239",
+    "timestamp": "2026-07-05 22:50:17",
+    "log_entry": "[2026-07-05 22:48:21] CRITICAL | Brute force attack detected | 91.108.4.1 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "Excessive failed login attempts in a short time frame"
+  },
+  {
+    "id": "INC-240",
+    "timestamp": "2026-07-05 22:56:10",
+    "log_entry": "[2026-07-05 22:55:16] WARNING  | Multiple failed login attempts | IP: 192.168.1.105 | Count: 774",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Excessive failed login attempts from a single IP address"
+  },
+  {
+    "id": "INC-241",
+    "timestamp": "2026-07-05 22:59:53",
+    "log_entry": "[2026-07-05 22:58:10] CRITICAL | Brute force attack detected | 103.21.244.0 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-242",
+    "timestamp": "2026-07-05 23:05:43",
+    "log_entry": "[2026-07-05 23:04:51] CRITICAL | Brute force attack detected | 192.168.1.105 made 50 failed login attempts in 60 seconds",
+    "threat_type": "Brute Force",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "Unknown",
+    "reason": "50 failed login attempts in 60 seconds"
+  },
+  {
+    "id": "INC-243",
+    "timestamp": "2026-07-05 23:08:41",
+    "log_entry": "[2026-07-05 23:08:00] WARNING  | Failed SSH login | IP: 103.21.244.0 | Username: root | Attempt: 122",
+    "threat_type": "Brute Force",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed SSH login attempts from the same IP address"
+  },
+  {
+    "id": "INC-244",
+    "timestamp": "2026-07-05 23:20:14",
+    "log_entry": "[2026-07-05 23:00:00] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 999/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Test alert"
+  },
+  {
+    "id": "INC-245",
+    "timestamp": "2026-07-05 23:22:29",
+    "log_entry": "[2026-07-05 23:00:00] CRITICAL | DDoS pattern detected | IP: 192.168.1.105 | Requests: 999/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "Test alert"
+  },
+  {
+    "id": "INC-246",
+    "timestamp": "2026-07-05 23:28:20",
+    "log_entry": "[2026-07-05 23:27:20] WARNING  | Multiple failed login attempts | IP: 103.21.244.0 | Count: 328",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "103.21.244.0",
+    "reason": "Multiple failed login attempts from a single IP address."
+  },
+  {
+    "id": "INC-247",
+    "timestamp": "2026-07-05 23:32:02",
+    "log_entry": "[2026-07-05 23:30:17] WARNING  | Failed SSH login | IP: 192.168.1.105 | Username: root | Attempt: 623",
+    "threat_type": "Brute Force",
+    "severity": "HIGH",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "High number of failed SSH login attempts from a single IP"
+  },
+  {
+    "id": "INC-248",
+    "timestamp": "2026-07-05 23:35:01",
+    "log_entry": "[2026-07-05 23:34:01] ERROR    | XSS attack attempt | IP: 192.168.1.105 | Payload: <script>alert('xss')</script>",
+    "threat_type": "XSS",
+    "severity": "MEDIUM",
+    "action_taken": "Block IP",
+    "ip": "192.168.1.105",
+    "reason": "XSS payload was detected in the server log entry"
+  },
+  {
+    "id": "INC-249",
+    "timestamp": "2026-07-05 23:37:58",
+    "log_entry": "[2026-07-05 23:36:57] CRITICAL | DDoS pattern detected | IP: 91.108.4.1 | Requests: 454/second",
+    "threat_type": "DDoS",
+    "severity": "CRITICAL",
+    "action_taken": "Block IP",
+    "ip": "91.108.4.1",
+    "reason": "High request rate indicates malicious traffic"
+  }
+]

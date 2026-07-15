@@ -1,0 +1,18 @@
+[
+  {
+    "username": "admin",
+    "password": "240be518fabd2724ddb6f04eeb1da5967448d7e831c08c8fa822809f74c720a9",
+    "full_name": "Admin User",
+    "role": "SOC Analyst",
+    "email": "admin@sentinelai.com",
+    "avatar_letter": "A"
+  },
+  {
+    "username": "gaurisingh.cs24@gmail.com",
+    "password": "65e84be33532fb784c48129675f9eff3a682b27168c0ea744b2cf58ee02337c5",
+    "full_name": "Gauri Singh",
+    "role": "Threat Hunter",
+    "email": "gaurisingh.cs24@gmail.com",
+    "avatar_letter": "G"
+  }
+]

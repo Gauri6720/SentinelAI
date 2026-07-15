@@ -1,0 +1,601 @@
+{% extends "base.html" %}
+{% block title %}SentinelAI — Reports{% endblock %}
+
+{% block extra_css %}
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+/* ── RESET BASE STYLES ── */
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body {
+  font-family: 'Inter', sans-serif !important;
+  background: #0B1220 !important;
+  color: #F8FAFC !important;
+  margin: 0 !important;
+  padding: 0 !important;
+  display: block !important;
+  min-height: 100vh;
+}
+body > nav { display: none !important; }
+body > main { padding: 0 !important; flex-grow: unset !important; }
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0.3; }
+}
+
+/* ════════════════════════════════
+   SIDEBAR (exact copy from dashboard)
+════════════════════════════════ */
+#sidebar {
+  position: fixed;
+  left: 0; top: 0;
+  width: 260px;
+  height: 100vh;
+  background: #0F172A;
+  display: flex;
+  flex-direction: column;
+  overflow-y: auto;
+  z-index: 200;
+  border-right: 1px solid rgba(255,255,255,0.06);
+}
+#sidebar::-webkit-scrollbar { width: 3px; }
+#sidebar::-webkit-scrollbar-thumb { background: rgba(56,189,248,0.2); }
+
+.sb-logo-wrap { padding: 20px 16px 12px; flex-shrink: 0; }
+.sb-logo { display: flex; align-items: center; gap: 10px; }
+.sb-logo-icon { font-size: 22px; line-height: 1; }
+.sb-logo-text { font-size: 20px; font-weight: 700; color: #F8FAFC; letter-spacing: -0.3px; }
+.sb-hr { border: none; border-top: 1px solid rgba(255,255,255,0.1); margin: 8px 0; }
+
+.sb-nav {
+  flex: 1;
+  padding: 4px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+}
+.sb-nav a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 16px;
+  color: #94A3B8;
+  text-decoration: none;
+  font-size: 14px;
+  font-weight: 500;
+  border-left: 3px solid transparent;
+  cursor: pointer;
+  transition: all 0.2s;
+  white-space: nowrap;
+  width: 100%;
+  margin: 0;
+}
+.sb-nav a:hover { background: rgba(255,255,255,0.05); color: #F8FAFC; }
+.sb-nav a.active {
+  border-left-color: #38BDF8;
+  background: rgba(56,189,248,0.1);
+  color: #F8FAFC;
+}
+.sb-nav a .nav-icon { font-size: 16px; flex-shrink: 0; }
+
+.sb-bottom { padding: 16px; margin-top: auto; flex-shrink: 0; }
+.sb-profile { display: flex; align-items: center; gap: 10px; margin-bottom: 12px; }
+.avatar {
+  width: 36px; height: 36px;
+  background: #38BDF8; border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  font-weight: 700; color: #fff; font-size: 14px; flex-shrink: 0;
+}
+.sb-user-name { font-weight: 600; color: #F8FAFC; font-size: 14px; }
+.sb-user-role { color: #94A3B8; font-size: 12px; }
+.sb-status-item {
+  display: flex; align-items: center; gap: 8px;
+  margin-bottom: 6px; font-size: 13px; color: #94A3B8;
+}
+.dot-green {
+  width: 8px; height: 8px; background: #22C55E;
+  border-radius: 50%; display: inline-block; flex-shrink: 0;
+  animation: blink 2s infinite;
+}
+
+/* ════════════════════════════════
+   TOP NAVBAR (exact copy from dashboard)
+════════════════════════════════ */
+#topnav {
+  position: fixed;
+  top: 0; left: 260px; right: 0;
+  height: 60px;
+  background: #0F172A;
+  border-bottom: 1px solid rgba(255,255,255,0.1);
+  display: flex;
+  align-items: center;
+  padding: 0 20px;
+  gap: 16px;
+  z-index: 100;
+}
+.topnav-search { flex: 1; }
+.topnav-search input {
+  width: 100%; max-width: 400px;
+  padding: 8px 16px;
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 8px;
+  color: #F8FAFC; font-size: 14px;
+  font-family: 'Inter', sans-serif;
+  outline: none; transition: border-color 0.2s;
+}
+.topnav-search input::placeholder { color: #475569; }
+.topnav-search input:focus { border-color: #38BDF8; }
+.topnav-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.live-indicator { display: flex; align-items: center; gap: 6px; }
+.live-dot { width: 8px; height: 8px; background: #22C55E; border-radius: 50%; animation: blink 1s infinite; }
+.live-text { color: #22C55E; font-weight: 600; font-size: 14px; }
+.bell-wrap { position: relative; display: inline-flex; align-items: center; cursor: pointer; }
+.bell-icon { font-size: 20px; color: #94A3B8; }
+.bell-badge {
+  position: absolute; top: -6px; right: -6px;
+  background: #EF4444; color: #fff; border-radius: 50%;
+  width: 18px; height: 18px; font-size: 11px;
+  display: flex; align-items: center; justify-content: center; font-weight: 700;
+}
+.gear-icon { font-size: 20px; color: #94A3B8; cursor: pointer; }
+.topnav-profile { display: flex; align-items: center; gap: 8px; }
+.topnav-user-name { color: #F8FAFC; font-size: 14px; font-weight: 600; }
+.topnav-user-role { color: #94A3B8; font-size: 12px; }
+
+/* ════════════════════════════════
+   MAIN CONTENT
+════════════════════════════════ */
+#main-content {
+  margin-left: 260px;
+  margin-top: 60px;
+  background: #0B1220;
+  padding: 24px;
+  overflow-y: auto;
+  min-height: calc(100vh - 60px);
+}
+
+/* ── PAGE HEADER ── */
+.page-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  margin-bottom: 24px;
+  gap: 16px;
+}
+.page-header-left {}
+.page-title { font-size: 22px; font-weight: 700; color: #F8FAFC; margin-bottom: 4px; }
+.page-subtitle { font-size: 13px; color: #94A3B8; }
+.btn-download {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: #7C3AED;
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-weight: 600;
+  font-size: 14px;
+  text-decoration: none;
+  white-space: nowrap;
+  flex-shrink: 0;
+  transition: background 0.2s;
+}
+.btn-download:hover { background: #6D28D9; }
+
+/* ── REPORT CARD ── */
+.report-card {
+  background: #121A2A;
+  border-radius: 12px;
+  border: 1px solid rgba(0,255,255,0.1);
+  padding: 28px;
+}
+
+/* ── REPORT DOCUMENT HEADER ── */
+.doc-header { margin-bottom: 20px; }
+.doc-title { font-size: 22px; font-weight: 700; color: #F8FAFC; margin-bottom: 6px; }
+.doc-meta { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+.doc-date { color: #94A3B8; font-size: 13px; }
+.badge-confidential {
+  background: #EF4444; color: #fff;
+  padding: 3px 10px; border-radius: 4px;
+  font-size: 11px; font-weight: 700; letter-spacing: 0.5px;
+}
+.doc-divider {
+  border: none;
+  border-top: 1px solid rgba(255,255,255,0.1);
+  margin: 16px 0;
+}
+
+/* ── SECTION LABELS ── */
+.section-label {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  margin-bottom: 14px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(255,255,255,0.06);
+}
+.section-label.cyan  { color: #38BDF8; border-bottom-color: rgba(56,189,248,0.2); }
+.section-label.red   { color: #EF4444; border-bottom-color: rgba(239,68,68,0.2); }
+.report-section { margin-bottom: 28px; }
+
+/* ── EXEC SUMMARY GRID ── */
+.exec-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 12px;
+  margin-bottom: 4px;
+}
+.exec-box {
+  background: rgba(255,255,255,0.03);
+  border-radius: 8px;
+  padding: 14px 12px;
+  text-align: center;
+  border: 1px solid rgba(255,255,255,0.06);
+}
+.exec-num { font-size: 26px; font-weight: 700; line-height: 1.1; margin-bottom: 4px; }
+.exec-lbl { font-size: 11px; color: #94A3B8; }
+
+/* ── TABLES ── */
+.rpt-table { width: 100%; border-collapse: collapse; }
+.rpt-table th {
+  background: rgba(56,189,248,0.1);
+  color: #38BDF8;
+  font-size: 12px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  padding: 10px 12px;
+  text-align: left;
+  border-bottom: 1px solid rgba(56,189,248,0.2);
+}
+.rpt-table td {
+  color: #F8FAFC;
+  font-size: 13px;
+  padding: 10px 12px;
+  border-bottom: 1px solid rgba(255,255,255,0.05);
+}
+.rpt-table tr:nth-child(even) td { background: rgba(255,255,255,0.02); }
+.rpt-table tr:last-child td { border-bottom: none; }
+.rpt-table.red-rows th { background: rgba(239,68,68,0.1); color: #EF4444; border-bottom-color: rgba(239,68,68,0.2); }
+.rpt-table.red-rows td { background: rgba(239,68,68,0.04) !important; color: #F8FAFC; }
+
+/* frequency bar */
+.freq-bar-wrap { width: 120px; height: 8px; background: rgba(255,255,255,0.08); border-radius: 4px; overflow: hidden; }
+.freq-bar      { height: 100%; background: #38BDF8; border-radius: 4px; transition: width 0.6s ease; }
+
+/* blocked ip tags */
+.ip-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+.ip-tag {
+  display: inline-block;
+  padding: 4px 12px;
+  border: 1px solid rgba(239,68,68,0.5);
+  border-radius: 4px;
+  color: #EF4444;
+  font-size: 12px;
+  font-family: monospace;
+  font-weight: 500;
+  background: rgba(239,68,68,0.06);
+}
+.ip-tag-empty { color: #94A3B8; font-size: 13px; font-style: italic; }
+
+/* ── SCROLLBAR ── */
+#main-content::-webkit-scrollbar { width: 5px; }
+#main-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+/* ── LOADING STATE ── */
+.loading-state { color: #475569; font-size: 13px; text-align: center; padding: 40px; }
+
+/* ── PROFILE DROPDOWN ── */
+.profile-trigger { position: relative; cursor: pointer; }
+.profile-dropdown {
+  display: none; position: absolute;
+  background: #1E293B;
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 12px; min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 999;
+}
+#sidebar-profile-dropdown { bottom: calc(100% + 6px); left: 0; }
+#navbar-profile-dropdown  { top: calc(100% + 8px); right: 0; }
+.pd-header {
+  padding: 16px; text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08); margin-bottom: 8px;
+}
+.pd-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg,#38BDF8,#7C3AED);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 8px; font-size: 20px; font-weight: 700; color: #fff;
+}
+.pd-name { font-size: 15px; font-weight: 600; color: #F8FAFC; }
+.pd-role { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+.pd-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px; color: #94A3B8; font-size: 14px;
+  text-decoration: none; transition: all 0.15s; cursor: pointer;
+}
+.pd-item:hover { background: rgba(255,255,255,0.05); color: #F8FAFC; }
+.pd-item.logout { color: #EF4444; }
+.pd-item.logout:hover { background: rgba(239,68,68,0.08); color: #EF4444; }
+</style>
+{% endblock %}
+
+{% block content %}
+
+<!-- ════════ SIDEBAR (exact copy from dashboard) ════════ -->
+<div id="sidebar">
+  <div class="sb-logo-wrap">
+    <div class="sb-logo">
+      <span class="sb-logo-icon">🛡️</span>
+      <span class="sb-logo-text">SentinelAI</span>
+    </div>
+  </div>
+  <hr class="sb-hr">
+  <nav class="sb-nav">
+    <a href="/"><span class="nav-icon">📊</span>Dashboard</a>
+    <a href="/incidents"><span class="nav-icon">⚠️</span>Incidents</a>
+    <a href="/blocked"><span class="nav-icon">🚫</span>Blocked IPs</a>
+    <a href="/activity"><span class="nav-icon">📋</span>Activity Log</a>
+    <a href="/threatmap"><span class="nav-icon">🗺️</span>Threat Map</a>
+    <a href="/reports" class="active"><span class="nav-icon">📄</span>Reports</a>
+    {% if perms.get('can_view_settings') %}
+    <a href="/settings"><span class="nav-icon">⚙️</span>Settings</a>
+    {% endif %}
+  </nav>
+  <div class="sb-bottom">
+    <hr class="sb-hr" style="margin-bottom:10px">
+    <div class="sb-status-item"><span class="dot-green"></span>AI Engine: Active</div>
+    <div class="sb-status-item" style="margin-bottom:10px"><span class="dot-green"></span>Data Ingestion: Live</div>
+    <div class="profile-trigger" onclick="toggleDropdown('sidebar-profile-dropdown')">
+      <div class="sb-profile" style="margin-bottom:0;cursor:pointer;">
+        <div class="avatar">{{ user.get('avatar_letter', 'A') }}</div>
+        <div>
+          <div class="sb-user-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="sb-user-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;font-size:11px;">▲</span>
+      </div>
+      <div class="profile-dropdown" id="sidebar-profile-dropdown">
+        <div class="pd-header">
+          <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <a href="/profile" class="pd-item">👤 My Profile</a>
+        <a href="/settings" class="pd-item">⚙️ Settings</a>
+        <a href="/logout" class="pd-item logout">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ TOP NAVBAR (exact copy from dashboard) ════════ -->
+<div id="topnav">
+  <div class="topnav-search">
+    <input type="text" placeholder="Search for IP, User, Alert ID...">
+  </div>
+  <div class="topnav-right">
+    <div class="live-indicator">
+      <span class="live-dot"></span>
+      <span class="live-text">LIVE</span>
+    </div>
+    <div class="bell-wrap">
+      <span class="bell-icon">🔔</span>
+      <span class="bell-badge" id="bell-count">0</span>
+    </div>
+    <span class="gear-icon">⚙️</span>
+    <div class="profile-trigger" onclick="toggleDropdown('navbar-profile-dropdown')">
+      <div class="topnav-profile" style="cursor:pointer;">
+        <div>
+          <div class="topnav-user-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="topnav-user-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <div class="avatar">{{ user.get('avatar_letter', 'A') }}</div>
+      </div>
+      <div class="profile-dropdown" id="navbar-profile-dropdown">
+        <div class="pd-header">
+          <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <a href="/profile" class="pd-item">👤 My Profile</a>
+        <a href="/settings" class="pd-item">⚙️ Settings</a>
+        <a href="/logout" class="pd-item logout">🚪 Logout</a>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="main-content">
+
+  <!-- PAGE HEADER -->
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-title">📄 Threat Intelligence Reports</div>
+      <div class="page-subtitle">AI-generated security analysis and incident summaries</div>
+    </div>
+    <a href="/report/download" target="_blank" class="btn-download">⬇ Download PDF Report</a>
+  </div>
+
+  <!-- REPORT PREVIEW CARD -->
+  <div class="report-card" id="report-card">
+    <div class="loading-state">Loading report preview...</div>
+  </div>
+
+</div><!-- /main-content -->
+{% endblock %}
+
+{% block extra_js %}
+<script>
+'use strict';
+
+function escHtml(s) {
+  if (s == null) return '—';
+  return String(s)
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;');
+}
+
+function renderReport(d) {
+  var maxThreat = d.top_threats.length ? d.top_threats[0].count : 1;
+
+  /* ── Exec summary boxes ── */
+  var execBoxes = [
+    { num: d.total_incidents, lbl: 'Total Incidents', color: '#22C55E' },
+    { num: d.critical,        lbl: 'Critical Threats', color: '#EF4444' },
+    { num: d.high,            lbl: 'High Threats',     color: '#F59E0B' },
+    { num: d.blocked_ips,     lbl: 'Blocked IPs',      color: '#EAB308' },
+    { num: d.medium,          lbl: 'Medium Threats',   color: '#38BDF8' },
+    { num: d.low,             lbl: 'Low Threats',      color: '#94A3B8' },
+  ];
+  var execHtml = execBoxes.map(function(b) {
+    return '<div class="exec-box">'
+      + '<div class="exec-num" style="color:' + b.color + '">' + b.num + '</div>'
+      + '<div class="exec-lbl">' + b.lbl + '</div>'
+      + '</div>';
+  }).join('');
+
+  /* ── Top threat types table ── */
+  var threatRows = d.top_threats.length ? d.top_threats.map(function(t) {
+    var pct = Math.round((t.count / maxThreat) * 100);
+    return '<tr>'
+      + '<td>' + escHtml(t.type) + '</td>'
+      + '<td style="color:#38BDF8;font-weight:600">' + t.count + '</td>'
+      + '<td><div class="freq-bar-wrap"><div class="freq-bar" style="width:' + pct + '%"></div></div></td>'
+      + '</tr>';
+  }).join('') : '<tr><td colspan="3" style="color:#94A3B8;text-align:center">No threat data</td></tr>';
+
+  /* ── Top IPs table ── */
+  var ipRows = d.top_ips.length ? d.top_ips.map(function(ip) {
+    return '<tr>'
+      + '<td style="font-family:monospace;color:#38BDF8">' + escHtml(ip.ip) + '</td>'
+      + '<td>' + escHtml(ip.country) + '</td>'
+      + '<td style="font-weight:600">' + ip.count + '</td>'
+      + '</tr>';
+  }).join('') : '<tr><td colspan="3" style="color:#94A3B8;text-align:center">No IP data</td></tr>';
+
+  /* ── Blocked IP tags ── */
+  var blockedHtml = d.blocked_list.length
+    ? '<div class="ip-tags">' + d.blocked_list.map(function(ip) {
+        return '<span class="ip-tag">' + escHtml(ip) + '</span>';
+      }).join('') + '</div>'
+    : '<span class="ip-tag-empty">No IPs currently blocked.</span>';
+
+  /* ── Recent critical incidents table ── */
+  var critRows = d.recent_critical.length ? d.recent_critical.map(function(inc) {
+    return '<tr>'
+      + '<td style="font-family:monospace;font-size:12px">' + escHtml(inc.id) + '</td>'
+      + '<td style="font-family:monospace;font-size:12px;color:#94A3B8">' + escHtml(inc.timestamp) + '</td>'
+      + '<td>' + escHtml(inc.threat_type) + '</td>'
+      + '<td style="font-family:monospace;color:#38BDF8">' + escHtml(inc.ip) + '</td>'
+      + '<td style="color:#F59E0B">' + escHtml(inc.action_taken) + '</td>'
+      + '<td style="color:#94A3B8;font-size:12px">' + escHtml(inc.reason) + '</td>'
+      + '</tr>';
+  }).join('') : '<tr><td colspan="6" style="color:#94A3B8;text-align:center">No critical incidents recorded.</td></tr>';
+
+  /* ── Assemble full card ── */
+  document.getElementById('report-card').innerHTML =
+
+    /* Document header */
+    '<div class="doc-header">'
+    + '<div class="doc-title">SentinelAI Threat Intelligence Report</div>'
+    + '<div class="doc-meta">'
+    +   '<span class="doc-date">Generated: ' + escHtml(d.generated_at) + '</span>'
+    +   '<span class="badge-confidential">CONFIDENTIAL</span>'
+    + '</div>'
+    + '<hr class="doc-divider">'
+    + '</div>'
+
+    /* Section 1 – Executive Summary */
+    + '<div class="report-section">'
+    +   '<div class="section-label cyan">Executive Summary</div>'
+    +   '<div class="exec-grid">' + execHtml + '</div>'
+    + '</div>'
+
+    /* Section 2 – Top Threat Types */
+    + '<div class="report-section">'
+    +   '<div class="section-label cyan">Top Threat Types</div>'
+    +   '<table class="rpt-table">'
+    +     '<thead><tr><th>Threat Type</th><th>Count</th><th>Frequency</th></tr></thead>'
+    +     '<tbody>' + threatRows + '</tbody>'
+    +   '</table>'
+    + '</div>'
+
+    /* Section 3 – Top Attacker IPs */
+    + '<div class="report-section">'
+    +   '<div class="section-label cyan">Top Attacker IPs</div>'
+    +   '<table class="rpt-table">'
+    +     '<thead><tr><th>IP Address</th><th>Country</th><th>Incidents</th></tr></thead>'
+    +     '<tbody>' + ipRows + '</tbody>'
+    +   '</table>'
+    + '</div>'
+
+    /* Section 4 – Blocked IPs */
+    + '<div class="report-section">'
+    +   '<div class="section-label red">Blocked IP Addresses</div>'
+    +   blockedHtml
+    + '</div>'
+
+    /* Section 5 – Recent Critical Incidents */
+    + '<div class="report-section">'
+    +   '<div class="section-label red">Recent Critical Incidents</div>'
+    +   '<table class="rpt-table red-rows">'
+    +     '<thead><tr><th>ID</th><th>Time</th><th>Threat</th><th>IP</th><th>Action</th><th>Reason</th></tr></thead>'
+    +     '<tbody>' + critRows + '</tbody>'
+    +   '</table>'
+    + '</div>';
+}
+
+function fetchPreview() {
+  fetch('/api/report-preview')
+    .then(function(r) { return r.json(); })
+    .then(function(d) {
+      renderReport(d);
+      /* update bell badge from stats */
+      fetch('/api/stats')
+        .then(function(r) { return r.json(); })
+        .then(function(s) {
+          var n = (s.critical || 0) + (s.high || 0);
+          document.getElementById('bell-count').textContent = n > 9 ? '9+' : n;
+        })
+        .catch(function() {});
+    })
+    .catch(function(e) {
+      console.error('[SIEM] report-preview error', e);
+      document.getElementById('report-card').innerHTML =
+        '<div class="loading-state" style="color:#EF4444">Error loading report preview. Retrying...</div>';
+    });
+}
+
+fetchPreview();
+setInterval(fetchPreview, 30000);
+</script>
+
+<script>
+/* ── PROFILE DROPDOWN ── */
+function toggleDropdown(id) {
+  var all = ['sidebar-profile-dropdown', 'navbar-profile-dropdown'];
+  all.forEach(function(did) {
+    var el = document.getElementById(did);
+    if (!el) return;
+    if (did === id) {
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.profile-trigger')) {
+    ['sidebar-profile-dropdown','navbar-profile-dropdown'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+});
+</script>
+{% endblock %}

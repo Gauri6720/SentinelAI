@@ -1,0 +1,107 @@
+<!-- ═══ SHARED PROFILE DROPDOWN CSS ═══ -->
+<style>
+/* profile trigger wrapper */
+.profile-trigger { position: relative; cursor: pointer; }
+
+/* dropdown panel */
+.profile-dropdown {
+  display: none;
+  position: absolute;
+  background: #1E293B;
+  border: 1px solid rgba(56,189,248,0.2);
+  border-radius: 12px;
+  min-width: 200px;
+  padding: 8px 0;
+  box-shadow: 0 8px 32px rgba(0,0,0,0.4);
+  z-index: 999;
+}
+
+/* sidebar dropdown opens UPWARD */
+#sidebar-profile-dropdown {
+  bottom: calc(100% + 6px);
+  left: 0;
+}
+
+/* navbar dropdown opens DOWNWARD */
+#navbar-profile-dropdown {
+  top: calc(100% + 8px);
+  right: 0;
+}
+
+/* dropdown header */
+.pd-header {
+  padding: 16px;
+  text-align: center;
+  border-bottom: 1px solid rgba(255,255,255,0.08);
+  margin-bottom: 8px;
+}
+.pd-avatar {
+  width: 48px; height: 48px; border-radius: 50%;
+  background: linear-gradient(135deg, #38BDF8, #7C3AED);
+  display: flex; align-items: center; justify-content: center;
+  margin: 0 auto 8px;
+  font-size: 20px; font-weight: 700; color: #fff;
+}
+.pd-name { font-size: 15px; font-weight: 600; color: #F8FAFC; }
+.pd-role { font-size: 12px; color: #94A3B8; margin-top: 2px; }
+
+/* dropdown menu items */
+.pd-item {
+  display: flex; align-items: center; gap: 10px;
+  padding: 10px 16px;
+  color: #94A3B8; font-size: 14px;
+  text-decoration: none;
+  transition: all 0.15s; cursor: pointer;
+}
+.pd-item:hover { background: rgba(255,255,255,0.05); color: #F8FAFC; }
+.pd-item.logout { color: #EF4444; }
+.pd-item.logout:hover { background: rgba(239,68,68,0.08); color: #EF4444; }
+</style>
+
+<aside class="sidebar">
+  <div class="sidebar-logo">
+    🛡️ <span style="font-size:18px;font-weight:700;color:#F8FAFC">SentinelAI</span>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="/" class="{% if request.path == '/' %}active{% endif %}">📊 Dashboard</a>
+    <a href="/incidents" class="{% if request.path == '/incidents' %}active{% endif %}">⚠️ Incidents</a>
+    <a href="/blocked" class="{% if request.path == '/blocked' %}active{% endif %}">🚫 Blocked IPs</a>
+    <a href="/activity" class="{% if request.path == '/activity' %}active{% endif %}">📋 Activity Log</a>
+    <a href="/threatmap" class="{% if request.path == '/threatmap' %}active{% endif %}">🗺️ Threat Map</a>
+    {% if perms.get('can_view_reports') %}
+    <a href="/reports" class="{% if request.path == '/reports' %}active{% endif %}">📄 Reports</a>
+    {% endif %}
+    {% if perms.get('can_view_settings') %}
+    <a href="/settings" class="{% if request.path == '/settings' %}active{% endif %}">⚙️ Settings</a>
+    {% endif %}
+  </nav>
+  <div class="sidebar-bottom">
+    <div class="status-item"><div class="status-dot"></div> AI Engine: Active</div>
+    <div class="status-item"><div class="status-dot"></div> Data Ingestion: Live</div>
+
+    <!-- SIDEBAR PROFILE TRIGGER -->
+    <div class="profile-trigger" onclick="toggleDropdown('sidebar-profile-dropdown')" style="margin-top:10px;">
+      <div class="sidebar-admin" style="margin-bottom:0;">
+        <div class="admin-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+        <div>
+          <div class="admin-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="admin-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <span style="margin-left:auto;color:#475569;font-size:11px;">▲</span>
+      </div>
+
+      <!-- SIDEBAR DROPDOWN -->
+      <div class="profile-dropdown" id="sidebar-profile-dropdown">
+        <div class="pd-header">
+          <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+          <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+        </div>
+        <a href="/profile" class="pd-item">👤 My Profile</a>
+        <a href="/settings" class="pd-item">⚙️ Settings</a>
+        <a href="/logout" class="pd-item logout">🚪 Logout</a>
+      </div>
+    </div><!-- /profile-trigger -->
+
+  </div>
+</aside>

@@ -1,0 +1,604 @@
+{% extends "base.html" %}
+{% block title %}SentinelAI — Settings{% endblock %}
+
+{% block extra_css %}
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+    --bg-color: #0B1220;
+    --panel-bg: #121A2A;
+    --sidebar-bg: #0F172A;
+    --text-primary: #F8FAFC;
+    --text-secondary: #94A3B8;
+    --accent-green: #22C55E;
+    --accent-cyan: #38BDF8;
+    --accent-purple: #7C3AED;
+    --warning: #F59E0B;
+    --critical: #EF4444;
+    --border-glow: rgba(0, 255, 255, 0.1);
+}
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+    background-color: var(--bg-color) !important;
+    font-family: 'Inter', sans-serif !important;
+    color: var(--text-primary) !important;
+    overflow: hidden;
+    margin: 0;
+    padding: 0;
+}
+
+body > nav { display: none !important; }
+main { padding: 0 !important; max-width: 100% !important; height: 100vh; }
+
+.dashboard-app { display: flex; height: 100vh; width: 100vw; }
+
+/* ── SIDEBAR ── */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 240px;
+    height: 100vh;
+    background: #0F172A;
+    display: flex;
+    flex-direction: column;
+    overflow-y: auto;
+    overflow-x: hidden;
+    z-index: 200;
+    border-right: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 18px 16px;
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-nav {
+    display: flex;
+    flex-direction: column;
+    padding: 8px 0;
+    flex: 1;
+}
+.sidebar-nav a {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 9px 16px;
+    color: #94A3B8;
+    text-decoration: none;
+    font-size: 13.5px;
+    font-family: 'Inter', sans-serif;
+    border-left: 3px solid transparent;
+    transition: all 0.15s ease;
+    white-space: nowrap;
+}
+.sidebar-nav a:hover {
+    background: rgba(255,255,255,0.04);
+    color: #F8FAFC;
+    border-left-color: rgba(56,189,248,0.4);
+}
+.sidebar-nav a.active {
+    background: rgba(56,189,248,0.08);
+    color: #38BDF8;
+    border-left-color: #38BDF8;
+    font-weight: 500;
+}
+.sidebar-bottom {
+    padding: 12px 16px;
+    border-top: 1px solid rgba(255,255,255,0.08);
+}
+.sidebar-admin {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-bottom: 12px;
+    padding: 6px 0;
+}
+.admin-avatar {
+    width: 32px;
+    height: 32px;
+    min-width: 32px;
+    background: #38BDF8;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 13px;
+    color: #0B1220;
+}
+.admin-name {
+    font-size: 13px;
+    font-weight: 600;
+    color: #F8FAFC;
+    line-height: 1.2;
+}
+.admin-role { font-size: 11px; color: #94A3B8; }
+.status-item {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+    font-size: 12px;
+    color: #94A3B8;
+    margin-bottom: 5px;
+}
+.status-dot {
+    width: 7px;
+    height: 7px;
+    min-width: 7px;
+    background: #22C55E;
+    border-radius: 50%;
+}
+@keyframes pulse-dot {
+    0%   { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34,197,94,0.7); }
+    70%  { transform: scale(1);    box-shadow: 0 0 0 6px rgba(34,197,94,0); }
+    100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34,197,94,0); }
+}
+
+/* ── MAIN AREA ── */
+.main-area {
+    flex-grow: 1; display: flex; flex-direction: column;
+    overflow: hidden; position: relative; margin-left: 240px;
+}
+.top-nav {
+    height: 60px; min-height: 60px;
+    background-color: var(--panel-bg);
+    border-bottom: 1px solid var(--border-glow);
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 0 24px; flex-shrink: 0; gap: 16px;
+}
+.nav-left { display: flex; align-items: center; gap: 14px; flex-shrink: 0; }
+.nav-center { flex-grow: 1; max-width: 420px; }
+.nav-center input {
+    width: 100%; padding: 7px 14px; border-radius: 8px;
+    border: 1px solid var(--border-glow);
+    background: var(--bg-color); color: var(--text-primary);
+    outline: none; font-family: 'Inter', sans-serif; font-size: 0.88rem; box-sizing: border-box;
+}
+.nav-right { display: flex; align-items: center; gap: 16px; flex-shrink: 0; }
+.live-indicator { display: flex; align-items: center; gap: 6px; color: var(--accent-green); font-weight: 600; font-size: 0.9rem; }
+.dot {
+    width: 8px; height: 8px; border-radius: 50%;
+    background-color: var(--accent-green); box-shadow: 0 0 8px var(--accent-green);
+    animation: pulse-dot 2s infinite;
+}
+.notification-bell {
+    position: relative; cursor: pointer; font-size: 1.2rem;
+    display: flex; align-items: center; justify-content: center;
+}
+.bell-badge {
+    position: absolute; top: -6px; right: -8px;
+    background-color: var(--critical); color: white;
+    font-size: 0.6rem; font-weight: bold;
+    min-width: 16px; height: 16px; padding: 0 3px;
+    border-radius: 8px; display: flex; align-items: center; justify-content: center;
+}
+.nav-admin { display: flex; align-items: center; gap: 10px; }
+.nav-profile-text { display: flex; flex-direction: column; align-items: flex-end; }
+.nav-profile-name { font-weight: 600; font-size: 0.88rem; color: var(--text-primary); white-space: nowrap; }
+.nav-profile-role { font-size: 0.72rem; color: var(--text-secondary); white-space: nowrap; }
+.nav-avatar {
+    min-width: 32px; min-height: 32px; width: 32px; height: 32px;
+    border-radius: 50%; background: var(--accent-cyan);
+    display: flex; align-items: center; justify-content: center;
+    font-weight: bold; color: #0B1220; font-size: 0.9rem; flex-shrink: 0;
+}
+
+/* ── CONTENT SCROLL ── */
+.settings-content {
+    flex-grow: 1; overflow-y: auto;
+    padding: 28px 32px;
+    display: flex; flex-direction: column; gap: 24px;
+}
+.settings-content::-webkit-scrollbar { width: 5px; }
+.settings-content::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.1); border-radius: 3px; }
+
+.page-title {
+    font-size: 1.4rem; font-weight: 700;
+    color: var(--text-primary); margin-bottom: 4px;
+}
+.page-subtitle { font-size: 0.88rem; color: var(--text-secondary); }
+
+/* ── SETTINGS CARD ── */
+.settings-card {
+    background: #121A2A;
+    border: 1px solid var(--border-glow);
+    border-radius: 12px;
+    padding: 20px;
+}
+.settings-card.danger { border-color: rgba(239,68,68,0.4); }
+
+.card-title {
+    font-size: 13px; font-weight: 700; text-transform: uppercase;
+    letter-spacing: 1px; color: var(--accent-cyan);
+    margin-bottom: 18px; padding-bottom: 10px;
+    border-bottom: 1px solid var(--border-glow);
+    display: flex; align-items: center; gap: 8px;
+}
+.card-title.danger { color: var(--critical); border-bottom-color: rgba(239,68,68,0.2); }
+
+/* ── SETTING ROW ── */
+.setting-row {
+    display: flex; align-items: center; justify-content: space-between;
+    padding: 12px 0;
+    border-bottom: 1px solid rgba(255,255,255,0.04);
+    gap: 16px;
+}
+.setting-row:last-child { border-bottom: none; padding-bottom: 0; }
+
+.setting-label { font-size: 14px; font-weight: 500; color: var(--text-primary); }
+.setting-desc  { font-size: 12px; color: var(--text-secondary); margin-top: 2px; }
+
+/* inputs */
+.setting-input {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; color: var(--text-primary);
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    padding: 7px 12px; outline: none; min-width: 200px;
+    transition: border-color 0.2s;
+}
+.setting-input:focus { border-color: var(--accent-cyan); }
+.setting-input[readonly] {
+    color: var(--text-secondary); cursor: default;
+    background: rgba(255,255,255,0.02);
+}
+
+/* readonly info chip */
+.info-chip {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.1);
+    border-radius: 8px; color: var(--text-secondary);
+    font-size: 13px; font-family: monospace;
+    padding: 7px 14px; white-space: nowrap;
+}
+
+/* status badge */
+.badge-active {
+    display: inline-flex; align-items: center; gap: 6px;
+    background: rgba(34,197,94,0.12); border: 1px solid rgba(34,197,94,0.35);
+    border-radius: 20px; padding: 4px 12px;
+    font-size: 12px; font-weight: 600; color: var(--accent-green);
+}
+.badge-active::before {
+    content: ''; display: inline-block;
+    width: 6px; height: 6px; border-radius: 50%;
+    background: var(--accent-green);
+    box-shadow: 0 0 6px var(--accent-green);
+    animation: pulse-dot 2s infinite;
+}
+
+/* select */
+.setting-select {
+    background: rgba(255,255,255,0.05);
+    border: 1px solid rgba(255,255,255,0.12);
+    border-radius: 8px; color: var(--text-primary);
+    font-size: 13px; font-family: 'Inter', sans-serif;
+    padding: 7px 12px; outline: none; cursor: pointer;
+    transition: border-color 0.2s; min-width: 160px;
+}
+.setting-select:focus { border-color: var(--accent-cyan); }
+.setting-select option { background: #121A2A; }
+
+/* toggle switch */
+.toggle-wrap { display: flex; align-items: center; gap: 10px; }
+.toggle {
+    position: relative; display: inline-block;
+    width: 44px; height: 24px; flex-shrink: 0;
+}
+.toggle input { opacity: 0; width: 0; height: 0; }
+.toggle-slider {
+    position: absolute; cursor: pointer;
+    top: 0; left: 0; right: 0; bottom: 0;
+    background: rgba(255,255,255,0.1);
+    border-radius: 24px; transition: 0.3s;
+    border: 1px solid rgba(255,255,255,0.15);
+}
+.toggle-slider::before {
+    content: ''; position: absolute;
+    height: 18px; width: 18px; left: 3px; bottom: 2px;
+    background: #94A3B8; border-radius: 50%; transition: 0.3s;
+}
+.toggle input:checked + .toggle-slider { background: rgba(34,197,94,0.25); border-color: var(--accent-green); }
+.toggle input:checked + .toggle-slider::before { transform: translateX(19px); background: var(--accent-green); }
+.toggle-state { font-size: 12px; font-weight: 600; color: var(--text-secondary); min-width: 28px; }
+.toggle input:checked ~ .toggle-state, .toggle-state.on { color: var(--accent-green); }
+
+/* danger buttons */
+.danger-btns { display: flex; gap: 12px; flex-wrap: wrap; }
+.btn-danger {
+    padding: 9px 20px; background: rgba(239,68,68,0.1);
+    border: 1px solid rgba(239,68,68,0.4); border-radius: 8px;
+    color: var(--critical); font-size: 13px; font-weight: 600;
+    font-family: 'Inter', sans-serif; cursor: pointer;
+    transition: all 0.2s; display: inline-flex; align-items: center; gap: 7px;
+}
+.btn-danger:hover { background: rgba(239,68,68,0.2); border-color: var(--critical); box-shadow: 0 0 12px rgba(239,68,68,0.2); }
+
+/* toast */
+#toast {
+    position: fixed; bottom: 28px; right: 28px;
+    background: #1E293B; border: 1px solid rgba(34,197,94,0.4);
+    color: var(--text-primary); border-radius: 10px;
+    padding: 12px 20px; font-size: 13px; font-weight: 500;
+    box-shadow: 0 8px 24px rgba(0,0,0,0.5);
+    display: none; z-index: 9999;
+    animation: slideIn 0.3s ease;
+}
+#toast.error { border-color: rgba(239,68,68,0.5); }
+@keyframes slideIn { from { opacity:0; transform:translateY(12px); } to { opacity:1; transform:translateY(0); } }
+
+/* responsive */
+@media (max-width: 1024px) {
+    .sidebar { width: 60px; }
+    .sidebar-label, .nav-label, .sidebar-user-text, .sys-status-item .nav-label { display: none !important; }
+    .sidebar-nav a { justify-content: center; padding: 12px 0; gap: 0; }
+    .nav-icon { min-width: 100%; text-align: center; font-size: 1.2rem; }
+    .sidebar-footer { padding: 10px 0; align-items: center; }
+    .sidebar-user { justify-content: center; }
+    .sys-status-item { justify-content: center; }
+    .main-area { margin-left: 60px; }
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="dashboard-app">
+
+  <!-- Sidebar -->
+  {% include '_sidebar.html' %}
+
+  <!-- Main -->
+  <div class="main-area">
+
+    <!-- Top Navbar -->
+    <header class="top-nav">
+      <div class="nav-left">
+        <div style="display:flex;align-items:center;gap:8px;font-weight:700;color:var(--text-primary);font-size:1.1rem;">
+          ⚙️ <span>Settings</span>
+        </div>
+      </div>
+      <div class="nav-center">
+        <input type="text" placeholder="Search for IP, User, Alert ID...">
+      </div>
+      <div class="nav-right">
+        <div class="live-indicator"><div class="dot"></div> LIVE</div>
+        <div class="notification-bell" title="Notifications">🔔<span class="bell-badge">3</span></div>
+        <div class="profile-trigger" onclick="toggleDropdown('navbar-profile-dropdown')" style="position:relative;">
+          <div class="nav-admin" style="cursor:pointer;">
+            <div class="nav-profile-text">
+              <span class="nav-profile-name">{{ user.get('full_name', 'Admin') }}</span>
+              <span class="nav-profile-role">{{ user.get('role', 'SOC Analyst') }}</span>
+            </div>
+            <div class="nav-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+          </div>
+          <div class="profile-dropdown" id="navbar-profile-dropdown">
+            <div class="pd-header">
+              <div class="pd-avatar">{{ user.get('avatar_letter', 'A') }}</div>
+              <div class="pd-name">{{ user.get('full_name', 'Admin') }}</div>
+              <div class="pd-role">{{ user.get('role', 'SOC Analyst') }}</div>
+            </div>
+            <a href="/profile" class="pd-item">👤 My Profile</a>
+            <a href="/settings" class="pd-item">⚙️ Settings</a>
+            <a href="/logout" class="pd-item logout">🚪 Logout</a>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Settings Content -->
+    <div class="settings-content">
+
+      <div>
+        <div class="page-title">Settings</div>
+        <div class="page-subtitle">Manage system configuration, alert preferences, and agent behaviour.</div>
+      </div>
+
+      <!-- ── SECTION 1: SYSTEM SETTINGS ── -->
+      <div class="settings-card">
+        <div class="card-title">🖥️ System Settings</div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">System Name</div>
+            <div class="setting-desc">Display name for this SentinelAI instance</div>
+          </div>
+          <input type="text" class="setting-input" value="SentinelAI" id="sys-name">
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Version</div>
+            <div class="setting-desc">Current software version</div>
+          </div>
+          <span class="info-chip">v1.0.0</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">System Status</div>
+            <div class="setting-desc">Current operational state</div>
+          </div>
+          <span class="badge-active">Active</span>
+        </div>
+      </div>
+
+      <!-- ── SECTION 2: ALERT SETTINGS ── -->
+      <div class="settings-card">
+        <div class="card-title">🔔 Alert Settings</div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Email Alerts</div>
+            <div class="setting-desc">Send notifications to the alert email address</div>
+          </div>
+          <div class="toggle-wrap">
+            <label class="toggle">
+              <input type="checkbox" id="email-toggle" checked>
+              <span class="toggle-slider"></span>
+            </label>
+            <span class="toggle-state on" id="email-toggle-label">ON</span>
+          </div>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Alert Email</div>
+            <div class="setting-desc">Recipient address for alert notifications</div>
+          </div>
+          <span class="info-chip">g***@gmail.com</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Critical Threshold</div>
+            <div class="setting-desc">Minimum severity level to trigger an alert</div>
+          </div>
+          <select class="setting-select" id="threshold-select">
+            <option value="critical" selected>Critical only</option>
+            <option value="high">High &amp; above</option>
+            <option value="medium">Medium &amp; above</option>
+            <option value="low">All severities</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- ── SECTION 3: AGENT SETTINGS ── -->
+      <div class="settings-card">
+        <div class="card-title">🤖 Agent Settings</div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Log Check Interval</div>
+            <div class="setting-desc">How often the monitor agent polls for new events</div>
+          </div>
+          <span class="info-chip">2 seconds</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">AI Model</div>
+            <div class="setting-desc">Language model used by the analyst agent</div>
+          </div>
+          <span class="info-chip">llama-3.3-70b-versatile</span>
+        </div>
+
+        <div class="setting-row">
+          <div>
+            <div class="setting-label">Max Incidents Stored</div>
+            <div class="setting-desc">Maximum number of incidents kept in memory</div>
+          </div>
+          <span class="info-chip">1000</span>
+        </div>
+      </div>
+
+      <!-- ── SECTION 4: DANGER ZONE ── -->
+      <div class="settings-card danger">
+        <div class="card-title danger">⚠️ Danger Zone</div>
+
+        <div class="setting-row" style="border-bottom:none;">
+          <div>
+            <div class="setting-label">Destructive Actions</div>
+            <div class="setting-desc" style="color:rgba(239,68,68,0.7);">These actions are permanent and cannot be undone.</div>
+          </div>
+          <div class="danger-btns">
+            {% if perms.get('can_clear_incidents') %}
+            <button class="btn-danger" onclick="clearIncidents()">🗑️ Clear All Incidents</button>
+            {% endif %}
+            {% if perms.get('can_clear_blocked') %}
+            <button class="btn-danger" onclick="clearBlocked()">🚫 Reset Blocked IPs</button>
+            {% endif %}
+            {% if not perms.get('can_clear_incidents') and not perms.get('can_clear_blocked') %}
+            <p style="color:#64748B;font-size:13px;">⚠️ Your role does not have permission to perform this action.</p>
+            {% endif %}
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /settings-content -->
+  </div><!-- /main-area -->
+</div><!-- /dashboard-app -->
+
+<!-- Toast notification -->
+<div id="toast"></div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+'use strict';
+
+/* ── Toggle label ── */
+document.getElementById('email-toggle').addEventListener('change', function() {
+  var label = document.getElementById('email-toggle-label');
+  if (this.checked) {
+    label.textContent = 'ON';
+    label.style.color = 'var(--accent-green)';
+  } else {
+    label.textContent = 'OFF';
+    label.style.color = 'var(--text-secondary)';
+  }
+});
+
+/* ── Toast helper ── */
+function showToast(msg, isError) {
+  var t = document.getElementById('toast');
+  t.textContent = msg;
+  t.className = isError ? 'error' : '';
+  t.style.display = 'block';
+  clearTimeout(t._timer);
+  t._timer = setTimeout(function() { t.style.display = 'none'; }, 3500);
+}
+
+/* ── Clear incidents ── */
+async function clearIncidents() {
+  if (!confirm('Clear ALL incidents? This cannot be undone.')) return;
+  try {
+    var res = await fetch('/api/clear-incidents', { method: 'POST' });
+    var data = await res.json();
+    showToast(data.message || 'Incidents cleared.', false);
+  } catch(e) {
+    showToast('Error: could not clear incidents.', true);
+  }
+}
+
+/* ── Reset blocked IPs ── */
+async function clearBlocked() {
+  if (!confirm('Reset ALL blocked IPs? This cannot be undone.')) return;
+  try {
+    var res = await fetch('/api/clear-blocked', { method: 'POST' });
+    var data = await res.json();
+    showToast(data.message || 'Blocked IPs reset.', false);
+  } catch(e) {
+    showToast('Error: could not reset blocked IPs.', true);
+  }
+}
+</script>
+
+<script>
+/* ── PROFILE DROPDOWN ── */
+function toggleDropdown(id) {
+  var all = ['sidebar-profile-dropdown', 'navbar-profile-dropdown'];
+  all.forEach(function(did) {
+    var el = document.getElementById(did);
+    if (!el) return;
+    if (did === id) {
+      el.style.display = el.style.display === 'block' ? 'none' : 'block';
+    } else {
+      el.style.display = 'none';
+    }
+  });
+}
+document.addEventListener('click', function(e) {
+  if (!e.target.closest('.profile-trigger')) {
+    ['sidebar-profile-dropdown','navbar-profile-dropdown'].forEach(function(id) {
+      var el = document.getElementById(id);
+      if (el) el.style.display = 'none';
+    });
+  }
+});
+</script>
+{% endblock %}
